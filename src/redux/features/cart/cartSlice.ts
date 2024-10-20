@@ -3,7 +3,7 @@ import { TProduct } from "../../../interface";
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: { items: Partial<TProduct>[] } = {
-  items: JSON.parse(localStorage.getItem("cartItems") || "") || [],
+  items: JSON.parse(localStorage.getItem("cartItems") || "[]"),
 };
 
 const cartSlice = createSlice({

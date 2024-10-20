@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.box-shadow {
+  box-shadow: 0 2px 5px gray;
+}
+
+.bg-gradient {
+  @apply bg-gradient-to-tr from-primary-700 to-secondary-700;
+}
+
+.logo {
+  font-weight: 900;
+  font-style: normal;
+  color: white;
+  letter-spacing: 5px;
+  text-shadow: 0 4px 5px #ef233c;
+}
+
+.btn-primary {
+  @apply bg-secondary-900 rounded w-fit px-3 py-1 text-white  font-semibold uppercase hover:bg-secondary-700 hover:scale-105 transition-all duration-200 cursor-pointer;
+}
+
+/* price range styles  */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.range-slider .progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 5px;
+  background: #001f3f;
+  pointer-events: none;
+}
+
+.range-slider input {
+  position: absolute;
+  top: -5px;
+  left: -1%;
+  width: 101%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  outline: none;
+  pointer-events: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: #001f3f;
+  pointer-events: auto;
+  -webkit-appearance: none;
+}
+
+/* 
+/////////////////////////////////// */

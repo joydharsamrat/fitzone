@@ -1,0 +1,34 @@
+/* Container for products */
+.productsContainer {
+  @apply grid sm:grid-cols-4 justify-items-center gap-10;
+}
+
+/* Product */
+.product {
+  @apply flex flex-col justify-between w-full mb-5 relative overflow-hidden rounded-lg p-1 box-border shadow-md transition-transform duration-500 ease-in-out bg-neutral-200;
+  animation: fadeInUp 1s ease;
+}
+
+/* Hover effect for product */
+.product:hover {
+  @apply -translate-y-1;
+}
+
+/* Container for product images */
+.productImgContainer {
+  @apply w-full aspect-square relative overflow-hidden rounded-t-md;
+}
+
+/* Product image */
+.productImgContainer img {
+  @apply w-full h-full rounded-t-md object-contain object-center transition-transform duration-500 ease-in-out;
+}
+
+/* Hover effect for product image */
+.product:hover .productImgContainer img {
+  @apply scale-110;
+}
+
+.productName {
+  @apply absolute text-white w-full p-1 bottom-0 left-0 bg-gradient-to-b from-transparent to-black;
+}

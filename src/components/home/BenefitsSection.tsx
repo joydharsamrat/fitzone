@@ -105,7 +105,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/assets/images/features/Options.jpeg"
+                src="/assets/images/features/options.jpeg"
                 alt="Wide Range of Options"
                 className="h-full w-full object-cover rounded-s"
               />

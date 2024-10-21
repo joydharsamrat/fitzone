@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import ProductCard from "../../components/product/productCard";
-import Loader from "../../components/shared/Loader";
 import { TProduct, TCategory } from "../../interface";
 import { useGetAllProductsQuery } from "../../redux/features/product/product.api";
 import styles from "../../styles/product.module.css";
 import { useGetAllCategoriesQuery } from "../../redux/features/category/categoryApi";
 import CategorySelect from "../../components/product/selectProductCategory";
 import PriceRangeSelector from "../../components/product/pricerangeSelector";
+import ProductCardSkeleton from "../../components/shared/loaders/ProductCardSkeleton";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -61,10 +61,6 @@ const Products = () => {
     setShowFilters((prev) => !prev);
   };
 
-  if (isLoading || isCategoryLoading) {
-    return <Loader />;
-  }
-
   return (
     <div className="max-w-7xl mx-auto py-10 px-5 sm:py-20">
       <h1 className="text-3xl font-semibold">Products</h1>
@@ -106,11 +102,28 @@ const Products = () => {
             </form>
 
             {/* Category Filter */}
-            <CategorySelect
-              categories={categoryData?.data || []}
-              selectedCategories={selectedCategories}
-              onChange={setSelectedCategories}
-            />
+            {isCategoryLoading ? (
+              <>
+                <label className="block text-sm font-medium mb-2">
+                  Categories
+                </label>
+                <div>
+                  <button
+                    type="button"
+                    className="w-full p-2 border border-gray-300 rounded animate-pulse bg-gray-300 flex justify-between items-center"
+                  >
+                    <span className="bg-gray-200 h-4 w-3/4 rounded" />
+                    <div className="w-5 h-5 bg-gray-200 rounded-full" />
+                  </button>
+                </div>{" "}
+              </>
+            ) : (
+              <CategorySelect
+                categories={categoryData?.data || []}
+                selectedCategories={selectedCategories}
+                onChange={setSelectedCategories}
+              />
+            )}
 
             {/* Price Range */}
             <PriceRangeSelector
@@ -150,7 +163,9 @@ const Products = () => {
           <div
             className={`${styles.productsContainer} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}
           >
-            {data?.data.length ? (
+            {isLoading ? (
+              <ProductCardSkeleton count={8} />
+            ) : data?.data.length ? (
               data?.data?.map((product: TProduct) => (
                 <ProductCard key={product._id} product={product} />
               ))

@@ -2,9 +2,10 @@ import { TProduct } from "../../interface";
 import { useGetFeaturedProductsQuery } from "../../redux/features/product/product.api";
 import ProductCard from "../product/productCard";
 import styles from "../../styles/product.module.css";
+import ProductCardSkeleton from "../shared/loaders/ProductCardSkeleton";
 
 const FeaturedProducts = () => {
-  const { data } = useGetFeaturedProductsQuery(undefined);
+  const { isLoading, data } = useGetFeaturedProductsQuery(undefined);
 
   return (
     <div className="px-5 sm:px-10 max-w-7xl mx-auto">
@@ -12,9 +13,13 @@ const FeaturedProducts = () => {
         Featured Products
       </h2>
       <div className={`${styles.productsContainer}`}>
-        {data?.data?.map((product: TProduct) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+        {isLoading ? (
+          <ProductCardSkeleton />
+        ) : (
+          data?.data?.map((product: TProduct) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
       </div>
     </div>
   );

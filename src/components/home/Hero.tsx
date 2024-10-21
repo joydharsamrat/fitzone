@@ -23,7 +23,7 @@ const Hero = () => {
         <div className=" flex items-end absolute bottom-0 sm:static ">
           <img
             className=" w-full "
-            src="/src/assets/images/hero-img.png"
+            src="/assets/images/hero-img.png"
             alt="a man holding a dumbbell"
           />
         </div>

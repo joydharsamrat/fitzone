@@ -10,7 +10,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/Quality.jpeg"
+                src="/assets/images/features/Quality.jpeg"
                 alt="High Quality"
                 className="h-full w-full object-cover"
               />
@@ -29,7 +29,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/price.jpeg"
+                src="/assets/images/features/price.jpeg"
                 alt="Affordable Pricing"
                 className="h-full w-full object-cover rounded-s"
               />
@@ -48,7 +48,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/Eco.jpeg"
+                src="/assets/images/features/Eco.jpeg"
                 alt="Eco-Friendly"
                 className="h-full w-full object-cover rounded-s"
               />
@@ -67,7 +67,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/customer.jpeg"
+                src="/assets/images/features/customer.jpeg"
                 alt="Expert Support"
                 className="h-full w-full object-cover rounded-s"
               />
@@ -86,7 +86,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/durable.jpeg"
+                src="/assets/images/features/durable.jpeg"
                 alt="Durability"
                 className="h-full w-full object-cover rounded-s"
               />
@@ -105,7 +105,7 @@ const BenefitsSection = () => {
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-20 w-20">
               <img
-                src="/src/assets/images/features/Options.jpeg"
+                src="/assets/images/features/Options.jpeg"
                 alt="Wide Range of Options"
                 className="h-full w-full object-cover rounded-s"
               />

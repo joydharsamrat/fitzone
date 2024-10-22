@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TCategory } from "../../interface";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 
@@ -14,6 +14,7 @@ const CategorySelect = ({
   onChange,
 }: CategorySelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Handle selection of categories
   const handleCategoryChange = (category: TCategory) => {
@@ -31,11 +32,33 @@ const CategorySelect = ({
     onChange(updatedCategories);
   };
 
+  // Close dropdown when click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [isOpen]);
+
   // Display selected categories as a comma-separated list
   const selectedLabels = selectedCategories.map((cat) => cat.title).join(", ");
 
   return (
-    <div className="relative my-2">
+    <div className="relative my-2" ref={dropdownRef}>
       <label className="block text-sm font-medium mb-2">Categories</label>
       {/* Dropdown Button */}
       <button

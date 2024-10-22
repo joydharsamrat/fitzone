@@ -11,6 +11,7 @@ import ProductsBanner from "../../components/product/ProductsBanner";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [selectedCategories, setSelectedCategories] = useState<TCategory[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(100000);
@@ -18,6 +19,10 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const limit = 8;
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    setPage(1);
+  }, [selectedCategories, minPrice, maxPrice, sort, searchTerm]);
 
   const handleClearFilters = () => {
     setSearchTerm("");
@@ -33,7 +38,7 @@ const Products = () => {
     useGetAllCategoriesQuery(undefined);
 
   const query = {
-    searchTerm,
+    searchTerm: debouncedSearchTerm,
     categories: selectedCategories.map((cat) => cat._id),
     minPrice,
     maxPrice,
@@ -44,15 +49,16 @@ const Products = () => {
 
   const { data, isLoading, refetch } = useGetAllProductsQuery(query);
 
-  const searchProducts = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSearchTerm(e.currentTarget.searchTerm.value);
-    refetch();
-  };
-
+  // Debounce logic for searchTerm
   useEffect(() => {
-    refetch();
-  }, [selectedCategories, minPrice, maxPrice, sort, page]);
+    const handler = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchTerm]);
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -77,30 +83,22 @@ const Products = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Sidebar */}
           <div
-            className={`grid grid-rows-[0fr] md:grid-rows-[1fr] transition-all duration-500 ease-in-out col-span-1 bg-white p-4 rounded-lg md:shadow  ${
+            className={`grid grid-rows-[0fr] md:grid-rows-[1fr] transition-all duration-500 ease-in-out col-span-1 bg-white p-4 rounded-lg md:shadow ${
               showFilters && "grid-rows-[1fr]"
-            } md:col-span-1 `}
+            } md:col-span-1`}
           >
             <div className="min-h-0 overflow-hidden">
               <h2 className="text-lg font-semibold mb-4">Filters</h2>
 
               {/* Search */}
-              <form
-                onSubmit={searchProducts}
-                className="flex justify-between items-stretch mb-4 border border-gray-300 rounded-md "
-              >
+              <form className="flex justify-between items-stretch mb-4 border border-gray-300 rounded-md">
                 <input
                   type="text"
-                  name="searchTerm"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   placeholder="Search products..."
                   className="w-full p-1"
                 />
-                <button
-                  type="submit"
-                  className="bg-secondary-700 rounded-e p-2 text-white"
-                >
-                  search
-                </button>
               </form>
 
               {/* Category Filter */}
@@ -117,7 +115,7 @@ const Products = () => {
                       <span className="bg-gray-200 h-4 w-3/4 rounded" />
                       <div className="w-5 h-5 bg-gray-200 rounded-full" />
                     </button>
-                  </div>{" "}
+                  </div>
                 </>
               ) : (
                 <CategorySelect
@@ -149,6 +147,7 @@ const Products = () => {
                   <option value="desc">Price: High to Low</option>
                 </select>
               </div>
+
               {/* Clear Filters Button */}
               <button
                 type="button"
@@ -187,7 +186,7 @@ const Products = () => {
               >
                 Previous
               </button>
-              <span className="text-lg font-semibold ">{page}</span>
+              <span className="text-lg font-semibold">{page}</span>
               <button
                 onClick={() => handlePageChange(page + 1)}
                 disabled={data?.data?.length < limit}

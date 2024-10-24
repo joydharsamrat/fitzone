@@ -1,8 +1,8 @@
-import { TProduct } from "../../../interface";
+import { CartItem } from "../../../interface";
 
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState: { items: Partial<TProduct>[] } = {
+const initialState: { items: CartItem[] } = {
   items: JSON.parse(localStorage.getItem("cartItems") || "[]"),
 };
 
@@ -20,12 +20,24 @@ const cartSlice = createSlice({
       }
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
-    updateQuantity: (state, action) => {
-      const { _id, quantity } = action.payload;
+    decreaseQuantity: (state, action) => {
+      const { _id } = action.payload;
       const existingItem = state.items.find((item) => item._id === _id);
-      if (existingItem && quantity > 0) {
-        existingItem.quantity = quantity;
+      if (existingItem && existingItem.quantity > 0) {
+        existingItem.quantity -= 1;
       }
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+    },
+    increaseQuantity: (state, action) => {
+      const { _id } = action.payload;
+      const existingItem = state.items.find((item) => item._id === _id);
+      if (existingItem) {
+        existingItem.quantity += 1;
+      }
+      localStorage.setItem("cartItems", JSON.stringify(state.items));
+    },
+    removeFromCart: (state, action) => {
+      state.items = state.items.filter((item) => item._id !== action.payload);
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     clearCart: (state) => {
@@ -35,5 +47,11 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, updateQuantity, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  decreaseQuantity,
+  increaseQuantity,
+  removeFromCart,
+  clearCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

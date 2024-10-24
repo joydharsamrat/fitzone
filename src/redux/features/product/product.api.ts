@@ -72,6 +72,13 @@ const productApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getProductsStock: builder.query({
+      query: (ids) => ({
+        url: `products/stock`,
+        method: "POST",
+        body: ids,
+      }),
+    }),
   }),
 });
 
@@ -80,4 +87,5 @@ export const {
   useGetAllProductsQuery,
   useGetFeaturedProductsQuery,
   useGetProductByIdQuery,
+  useGetProductsStockQuery,
 } = productApi;

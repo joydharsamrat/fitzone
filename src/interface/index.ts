@@ -20,3 +20,11 @@ export type TDefaultProductValues = {
   description: string;
   quantity: number;
 };
+
+export type CartItem = {
+  _id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+};

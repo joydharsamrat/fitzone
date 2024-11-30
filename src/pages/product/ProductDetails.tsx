@@ -5,17 +5,19 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import ProductDetailsBanner from "../../components/product/ProductDetailsBanner";
+import SimilarProducts from "../../components/product/SimilarProducts";
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const { data, error, isLoading } = useGetProductByIdQuery(productId);
   const product = data?.data;
-  const { name, description, price, images, category, quantity } =
+  const { name, description, price, images, category, quantity, _id } =
     product || {};
   const [imgUrl, setImg] = useState("");
   const [currentQuantity, setCurrentQuantity] = useState(1);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     if (images?.length) {
@@ -57,7 +59,9 @@ const ProductDetails = () => {
 
   if (error) {
     return (
-      <p className="text-center text-red-500">Error loading product details.</p>
+      <p className="text-center text-red-500 h-screen  my-20">
+        Error loading product details.
+      </p>
     );
   }
 
@@ -70,8 +74,18 @@ const ProductDetails = () => {
             <img
               src={imgUrl}
               alt={name || "Product"}
-              className="w-full h-96 object-cover rounded-lg shadow-lg"
+              className={`w-full max-h-96 object-cover rounded-lg shadow-lg ${
+                imageLoading ? "hidden" : "block"
+              }`}
+              onLoad={() => setImageLoading(false)}
+              onError={() => setImageLoading(false)}
             />
+            {imageLoading && (
+              <div className="w-full h-60 sm:h-96 bg-gray-200 flex items-center justify-center rounded-lg shadow-lg">
+                <span className="text-gray-400"></span>
+              </div>
+            )}
+
             <div className="flex gap-2 justify-center overflow-x-auto">
               {images?.map((image: string, index: number) => (
                 <img
@@ -79,7 +93,7 @@ const ProductDetails = () => {
                   src={image}
                   onClick={() => setImg(image)}
                   alt={`Product Image ${index + 1}`}
-                  className={`w-24 h-24 object-cover rounded-lg cursor-pointer ${
+                  className={`w-16 h-16 sm:w-24 sm:h-24 object-cover rounded-lg cursor-pointer ${
                     imgUrl === image ? "border-2 border-secondary-700" : ""
                   }`}
                 />
@@ -128,6 +142,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+      <SimilarProducts category={category} id={_id} />
     </div>
   );
 };

@@ -8,7 +8,7 @@ const ImageGallery = () => {
   const images: TImage[] = data?.data || [];
 
   return (
-    <div className="bg-background-100 py-16">
+    <div className="bg-background-100 mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
           Image Gallery

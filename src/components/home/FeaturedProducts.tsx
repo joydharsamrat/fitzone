@@ -8,7 +8,7 @@ const FeaturedProducts = () => {
   const { isLoading, data } = useGetFeaturedProductsQuery(undefined);
 
   return (
-    <div className="px-5 sm:px-10 max-w-7xl mx-auto">
+    <div className="mt-20 px-5 sm:px-10 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
         Featured Products
       </h2>

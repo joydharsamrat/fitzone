@@ -13,7 +13,7 @@ const ProductCategories = () => {
   };
 
   return (
-    <div className="my-20 px-5 sm:px-10 pb-10 max-w-7xl mx-auto">
+    <div className="mt-20 px-5 sm:px-10 pb-10 max-w-7xl mx-auto">
       <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
         Product Categories
       </h2>
@@ -23,11 +23,11 @@ const ProductCategories = () => {
         ) : (
           data?.data?.map((category: TCategory) => (
             <div
-              className="min-w-[100px] flex cursor-pointer uppercase"
+              className="min-w-[100px] flex cursor-pointer uppercase hover:shadow-xl hover:-translate-y-2 transition-all duration-200 group"
               key={category._id}
-              onClick={() => handleCategoryClick(category._id)} // Navigate to products page
+              onClick={() => handleCategoryClick(category._id)}
             >
-              <div className="relative bg-neutral-200 rounded text-center font-semibold box-shadow transition-all duration-[.5s] p-4">
+              <div className="relative bg-neutral-200 rounded text-center font-semibold box-shadow transition-all duration-[.5s] p-4 flex flex-col justify-between">
                 <p className="w-4 hidden group-hover:block absolute top-2 right-2 text-secondary-500 animate__animated animate__fadeInLeft">
                   <ArrowRightIcon />
                 </p>

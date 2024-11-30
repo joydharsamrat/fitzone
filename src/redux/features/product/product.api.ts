@@ -11,13 +11,13 @@ const productApi = baseApi.injectEndpoints({
     }),
     getAllProducts: builder.query({
       query: ({
-        searchTerm,
-        categories,
-        minPrice,
-        maxPrice,
-        sort,
-        page,
-        limit,
+        searchTerm = "",
+        categories = "",
+        minPrice = 0,
+        maxPrice = 0,
+        sort = "",
+        page = 1,
+        limit = 0,
       }) => {
         const params = new URLSearchParams();
 

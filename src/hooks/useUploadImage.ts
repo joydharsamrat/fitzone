@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { envConfig } from "../config/envConfig";
 
 const useUploadImage = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -8,7 +9,7 @@ const useUploadImage = () => {
     setLoading(true);
     setError(null);
     try {
-      const url = import.meta.env.VITE_IMGBB_URL as string;
+      const url = envConfig.IMGBB_URL;
 
       const formData = new FormData();
       formData.append("image", imgData);

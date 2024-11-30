@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { envConfig } from "../../config/envConfig";
 
 export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://fit-zone-server-ten.vercel.app/api/v1/",
+    baseUrl: envConfig.BASE_API,
   }),
   endpoints: () => ({}),
 });

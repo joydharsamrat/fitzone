@@ -28,3 +28,8 @@ export type CartItem = {
   quantity: number;
   image: string;
 };
+
+export type TImage = {
+  _id: string;
+  url: string;
+};

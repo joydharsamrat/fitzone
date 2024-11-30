@@ -18,7 +18,6 @@ const PriceRangeSelector = ({
   const gap = 100;
 
   useEffect(() => {
-    // Update progress style whenever the range changes
     const progress = document.querySelector(".progress") as HTMLElement;
     if (progress) {
       progress.style.left = (minRange / 100000) * 100 + "%";
@@ -26,35 +25,48 @@ const PriceRangeSelector = ({
     }
   }, [minRange, maxRange]);
 
+  // Debounced  min and max range
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onMinPriceChange(minRange);
+    }, 500);
+    return () => clearTimeout(timer); // Clear  timer
+  }, [minRange, onMinPriceChange]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onMaxPriceChange(maxRange);
+    }, 500);
+    return () => clearTimeout(timer); // Clear timer
+  }, [maxRange, onMaxPriceChange]);
+
   const handleMinChange = (value: number) => {
     if (value + gap <= maxRange) {
       setMinRange(value);
-      onMinPriceChange(value);
     }
   };
 
   const handleMaxChange = (value: number) => {
     if (value - gap >= minRange) {
       setMaxRange(value);
-      onMaxPriceChange(value);
     }
   };
 
   return (
     <div className="price-range-container my-5">
       <h4 className="block text-sm font-medium mb-2">Price</h4>
-      <div className="flex justify-between items-center mb-2  text-xs">
+      <div className="flex justify-between items-center mb-2 text-xs">
         <div className="flex justify-center items-center">
           <p>Min $</p>
           <input
-            className="w-14 text-center border-none p-1  rounded font-semibold  border"
+            className="w-14 text-center border-none p-1 rounded font-semibold border"
             type="number"
             value={minRange}
             readOnly
           />
         </div>
 
-        <div className="flex justify-center items-center ">
+        <div className="flex justify-center items-center">
           <p>Max $</p>
           <input
             className="w-14 text-center border-none p-1 rounded font-semibold border"
@@ -65,12 +77,12 @@ const PriceRangeSelector = ({
         </div>
       </div>
 
-      <div className=" h-12 flex items-center  mx-1.5 px-1.5 rounded border">
+      <div className="h-12 flex items-center mx-1.5 px-1.5 rounded border">
         <div className="range-slider flex relative w-full h-1.5 rounded bg-neutral-300">
           <div className="progress"></div>
           <input
             type="range"
-            className="min-range"
+            className="min-range cursor-pointer"
             min="0"
             max="100000"
             value={minRange}
@@ -78,7 +90,7 @@ const PriceRangeSelector = ({
           />
           <input
             type="range"
-            className="max-range"
+            className="max-range cursor-pointer"
             min="0"
             max="100000"
             value={maxRange}

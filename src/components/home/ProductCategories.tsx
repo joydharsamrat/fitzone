@@ -1,10 +1,16 @@
 import { ArrowRightIcon } from "@heroicons/react/16/solid";
 import { useGetAllCategoriesQuery } from "../../redux/features/category/categoryApi";
 import { TCategory } from "../../interface";
+import { useNavigate } from "react-router-dom";
 import CategorySkeleton from "../shared/loaders/CategorySkeleton";
 
 const ProductCategories = () => {
   const { isLoading, data } = useGetAllCategoriesQuery(undefined);
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryId: string) => {
+    navigate(`/products?category=${categoryId}`);
+  };
 
   return (
     <div className="my-20 px-5 sm:px-10 pb-10 max-w-7xl mx-auto">
@@ -17,8 +23,9 @@ const ProductCategories = () => {
         ) : (
           data?.data?.map((category: TCategory) => (
             <div
-              className="min-w-[100px]  flex cursor-pointer uppercase "
+              className="min-w-[100px] flex cursor-pointer uppercase"
               key={category._id}
+              onClick={() => handleCategoryClick(category._id)} // Navigate to products page
             >
               <div className="relative bg-neutral-200 rounded text-center font-semibold box-shadow transition-all duration-[.5s] p-4">
                 <p className="w-4 hidden group-hover:block absolute top-2 right-2 text-secondary-500 animate__animated animate__fadeInLeft">

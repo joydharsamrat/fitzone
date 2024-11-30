@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/product/productCard";
 import { TProduct, TCategory } from "../../interface";
 import { useGetAllProductsQuery } from "../../redux/features/product/product.api";
-import styles from "../../styles/product.module.css";
 import { useGetAllCategoriesQuery } from "../../redux/features/category/categoryApi";
 import CategorySelect from "../../components/product/selectProductCategory";
 import PriceRangeSelector from "../../components/product/pricerangeSelector";
 import ProductCardSkeleton from "../../components/shared/loaders/ProductCardSkeleton";
 import ProductsBanner from "../../components/product/ProductsBanner";
+import styles from "../../styles/product.module.css";
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
+  const categoryParam = searchParams.get("category"); // Get category from URL query params
+
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [selectedCategories, setSelectedCategories] = useState<TCategory[]>([]);
@@ -20,22 +24,30 @@ const Products = () => {
   const limit = 8;
   const [showFilters, setShowFilters] = useState(false);
 
-  useEffect(() => {
-    setPage(1);
-  }, [selectedCategories, minPrice, maxPrice, sort, searchTerm]);
-
-  const handleClearFilters = () => {
-    setSearchTerm("");
-    setSelectedCategories([]);
-    setMinPrice(0);
-    setMaxPrice(10000);
-    setSort("desc");
-    setPage(1);
-    refetch();
-  };
-
+  // Fetch categories for filters
   const { data: categoryData, isLoading: isCategoryLoading } =
     useGetAllCategoriesQuery(undefined);
+
+  // Scroll to top on filter or pagination changes
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  // Preselect category based on URL query parameter
+  useEffect(() => {
+    if (categoryParam && categoryData) {
+      const matchingCategory = categoryData.data.find(
+        (category: TCategory) => category._id === categoryParam
+      );
+      if (matchingCategory) {
+        setSelectedCategories([matchingCategory]);
+      }
+    }
+    setPage(1); // Reset pagination on category change
+  }, [categoryParam, categoryData]);
 
   const query = {
     searchTerm: debouncedSearchTerm,
@@ -49,31 +61,47 @@ const Products = () => {
 
   const { data, isLoading, refetch } = useGetAllProductsQuery(query);
 
-  // Debounce logic for searchTerm
+  // Debounce logic for search term
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
     }, 500);
-
     return () => {
       clearTimeout(handler);
     };
   }, [searchTerm]);
 
+  // Reset filters function
+  const handleClearFilters = () => {
+    setSearchTerm("");
+    setSelectedCategories([]);
+    setMinPrice(0);
+    setMaxPrice(100000);
+    setSort("desc");
+    setPage(1);
+    refetch();
+  };
+
+  // Pagination controls
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
 
+  // Toggle filter visibility on small screens
   const toggleFilters = () => {
     setShowFilters((prev) => !prev);
   };
+
+  useEffect(() => {
+    scrollToTop();
+  }, [data]);
 
   return (
     <div>
       <ProductsBanner />
 
       <div className="max-w-7xl mx-auto py-10 sm:py-20 px-5">
-        {/* Toggle button for filters on small screens */}
+        {/* Filters Toggle Button for Small Screens */}
         <div className="px-2 flex justify-end md:hidden mb-5 md:mb-0">
           <button className="btn-primary" onClick={toggleFilters}>
             {showFilters ? "X" : "Filters"}
@@ -81,7 +109,7 @@ const Products = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {/* Sidebar */}
+          {/* Sidebar for Filters */}
           <div
             className={`grid grid-rows-[0fr] md:grid-rows-[1fr] transition-all duration-500 ease-in-out col-span-1 bg-white p-4 rounded-lg md:shadow ${
               showFilters && "grid-rows-[1fr]"
@@ -90,7 +118,7 @@ const Products = () => {
             <div className="min-h-0 overflow-hidden">
               <h2 className="text-lg font-semibold mb-4">Filters</h2>
 
-              {/* Search */}
+              {/* Search Bar */}
               <form className="flex justify-between items-stretch mb-4 border border-gray-300 rounded-md">
                 <input
                   type="text"
@@ -103,20 +131,7 @@ const Products = () => {
 
               {/* Category Filter */}
               {isCategoryLoading ? (
-                <>
-                  <label className="block text-sm font-medium mb-2">
-                    Categories
-                  </label>
-                  <div>
-                    <button
-                      type="button"
-                      className="w-full p-2 border border-gray-300 rounded animate-pulse bg-gray-300 flex justify-between items-center"
-                    >
-                      <span className="bg-gray-200 h-4 w-3/4 rounded" />
-                      <div className="w-5 h-5 bg-gray-200 rounded-full" />
-                    </button>
-                  </div>
-                </>
+                <div className="animate-pulse bg-gray-200 h-10 rounded mb-4" />
               ) : (
                 <CategorySelect
                   categories={categoryData?.data || []}
@@ -125,7 +140,7 @@ const Products = () => {
                 />
               )}
 
-              {/* Price Range */}
+              {/* Price Range Selector */}
               <PriceRangeSelector
                 minPrice={minPrice}
                 maxPrice={maxPrice}
@@ -133,7 +148,7 @@ const Products = () => {
                 onMaxPriceChange={setMaxPrice}
               />
 
-              {/* Sorting */}
+              {/* Sorting Selector */}
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2">
                   Sort by Price
@@ -167,12 +182,12 @@ const Products = () => {
               {isLoading ? (
                 <ProductCardSkeleton count={8} />
               ) : data?.data.length ? (
-                data?.data?.map((product: TProduct) => (
+                data?.data.map((product: TProduct) => (
                   <ProductCard key={product._id} product={product} />
                 ))
               ) : (
                 <div className="flex justify-center items-center text-3xl font-semibold">
-                  <p>No Product Found</p>
+                  <p>No Products Found</p>
                 </div>
               )}
             </div>

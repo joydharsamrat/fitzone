@@ -33,3 +33,10 @@ export type TImage = {
   _id: string;
   url: string;
 };
+export type TTestimonial = {
+  _id: string;
+  name: string;
+  title: string;
+  image: string;
+  feedback: string;
+};

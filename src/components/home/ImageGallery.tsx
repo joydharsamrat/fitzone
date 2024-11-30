@@ -5,7 +5,7 @@ import ImageSkeleton from "../shared/loaders/ImagesSkeleton";
 const ImageGallery = () => {
   const { data, isLoading } = useGetAllImagesQuery(undefined);
 
-  const images: TImage[] = data?.data;
+  const images: TImage[] = data?.data || [];
 
   return (
     <div className="bg-background-100 py-16">

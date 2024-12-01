@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../redux/features/product/product.api";
 import Loader from "../../components/shared/Loader";
@@ -39,6 +40,7 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = async () => {
+    const loadingToast = toast.loading("Loading...");
     try {
       setLoading(true);
       const cartItem = {
@@ -50,9 +52,17 @@ const ProductDetails = () => {
       if (res.error) {
         throw res.error;
       }
-      toast.success("Item added to cart");
-    } catch (error) {
+      toast.success("Item added to cart", { id: loadingToast });
+    } catch (error: any) {
       console.log(error);
+      toast.error(
+        error.message ||
+          error?.data?.message ||
+          "Sign up failed. Please try again.",
+        {
+          id: loadingToast,
+        }
+      );
     } finally {
       setLoading(false);
     }

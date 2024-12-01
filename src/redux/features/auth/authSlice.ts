@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TUserAuth } from "../../../types";
 import { RootState } from "../store";
+import { TUserAuth } from "../../../interface";
 
 type TAuthState = {
   user: null | TUserAuth;
   token: null | string;
 };
 
-const userData = localStorage.getItem("autoShineUser");
-const tokenData = localStorage.getItem("autoShineToken");
+const userData = localStorage.getItem("user");
+const tokenData = localStorage.getItem("accessToken");
 
 const initialState: TAuthState = {
   user: userData ? JSON.parse(userData) : null,
@@ -23,14 +23,14 @@ const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      localStorage.setItem("autoShineUser", JSON.stringify(user));
-      localStorage.setItem("autoShineToken", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("accessToken", token);
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
-      localStorage.removeItem("autoShineUser");
-      localStorage.removeItem("autoShineToken");
+      localStorage.removeItem("user");
+      localStorage.removeItem("accessToken");
     },
   },
 });

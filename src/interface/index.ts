@@ -40,3 +40,41 @@ export type TTestimonial = {
   image: string;
   feedback: string;
 };
+
+export type TUserAuth = {
+  _id: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+};
+
+export type TCartItem = {
+  createdAt: string;
+  updatedAt: string;
+  product: {
+    _id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    description: string;
+    images: string[];
+    category: string;
+    featured?: boolean;
+    updatedAt: string;
+    __v: number;
+  };
+  quantity: number;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    role: "user" | "admin";
+    createdAt: string;
+    updatedAt: string;
+    isDeleted: boolean;
+    __v: number;
+  };
+  __v: number;
+  _id: string;
+};

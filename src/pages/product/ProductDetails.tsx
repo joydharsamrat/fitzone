@@ -2,10 +2,12 @@ import { useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../redux/features/product/product.api";
 import Loader from "../../components/shared/Loader";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/features/cart/cartSlice";
 import ProductDetailsBanner from "../../components/product/ProductDetailsBanner";
 import SimilarProducts from "../../components/product/SimilarProducts";
+import { useAddToCartMutation } from "../../redux/features/cart/cart.api";
+import toast from "react-hot-toast";
+import { getCurrentUser } from "../../redux/features/auth/authSlice";
+import { useAppSelector } from "../../redux/features/hooks";
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -15,9 +17,10 @@ const ProductDetails = () => {
     product || {};
   const [imgUrl, setImg] = useState("");
   const [currentQuantity, setCurrentQuantity] = useState(1);
-  const dispatch = useDispatch();
+  const [addToCart] = useAddToCartMutation();
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const user = useAppSelector(getCurrentUser);
 
   useEffect(() => {
     if (images?.length) {
@@ -35,17 +38,19 @@ const ProductDetails = () => {
     }
   };
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     try {
       setLoading(true);
       const cartItem = {
-        _id: product._id,
-        name,
-        price,
+        user: user?._id,
+        product: product._id,
         quantity: currentQuantity,
-        image: imgUrl,
       };
-      dispatch(addToCart(cartItem));
+      const res = await addToCart(cartItem);
+      if (res.error) {
+        throw res.error;
+      }
+      toast.success("Item added to cart");
     } catch (error) {
       console.log(error);
     } finally {

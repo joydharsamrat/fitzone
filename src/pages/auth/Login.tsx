@@ -2,22 +2,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Form from "../../components/shared/form/Form";
 import InputField from "../../components/shared/form/InputField";
-import { registerSchema } from "../../schemas/RegisterSchema";
 import toast from "react-hot-toast";
-import { useSignUpMutation } from "../../redux/features/auth/authApi";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/features/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { loginSchema } from "../../schemas/LoginSchema";
 
-const Register = () => {
+const Login = () => {
   const defaultValues = {
-    name: "",
     email: "",
     password: "",
-    confirmPassword: "",
   };
-  const [createUser] = useSignUpMutation();
+  const [loginUser] = useLoginMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -25,11 +23,11 @@ const Register = () => {
     const loadingToast = toast.loading("Loading...");
 
     try {
-      const res = await createUser(data).unwrap();
+      const res = await loginUser(data).unwrap();
 
       const user = jwtDecode(res.data.token);
       dispatch(setUser({ user, token: res.data.token }));
-      toast.success("Sign up successful!", { id: loadingToast });
+      toast.success("Login successful!", { id: loadingToast });
       navigate("/");
     } catch (error: any) {
       toast.error(
@@ -65,22 +63,13 @@ const Register = () => {
           <Form
             onSubmit={onSubmit}
             defaultValues={defaultValues}
-            resolver={zodResolver(registerSchema)}
+            resolver={zodResolver(loginSchema)}
           >
-            <InputField type="text" name="name" label="Full Name" />
             <InputField type="email" name="email" label="Email Address" />
             <InputField type="password" name="password" label="Password" />
-            <InputField
-              type="password"
-              name="confirmPassword"
-              label="Confirm Password"
-            />
+
             <div className="flex justify-end">
-              <input
-                type="submit"
-                value="Register"
-                className="btn-primary mt-5"
-              />
+              <input type="submit" value="Login" className="btn-primary mt-5" />
             </div>
           </Form>
         </div>
@@ -89,4 +78,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

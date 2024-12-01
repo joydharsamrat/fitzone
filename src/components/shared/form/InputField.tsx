@@ -1,4 +1,6 @@
-import { Controller } from "react-hook-form";
+import { useState } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const InputField = ({
   type,
@@ -9,8 +11,16 @@ const InputField = ({
   name: string;
   label: string;
 }) => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+
+  const [isPasswordVisible, setPasswordVisible] = useState(false);
+
+  const inputType = type === "password" && isPasswordVisible ? "text" : type;
+
   return (
-    <div className="my-1">
+    <div className="my-4">
       {label && (
         <label
           htmlFor={name}
@@ -26,13 +36,27 @@ const InputField = ({
             <input
               {...field}
               id={name}
-              type={type}
+              type={inputType}
               placeholder={name}
-              className="block w-full rounded-md border-0 py-1.5 pl-2 pr-5  ring-1 ring-inset ring-gray-300 placeholder:text-neutral-400 focus:ring-2 focus:ring-inset focus:ring-secondary-700 sm:text-sm sm:leading-6"
+              className="block w-full  border-0 py-1.5 pl-2 pr-5 bg-transparent border-b-2 outline-none text-white"
             />
           )}
         ></Controller>
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={() => setPasswordVisible(!isPasswordVisible)}
+            className="absolute inset-y-0 right-2 flex items-center text-white hover:text-gray-200 focus:outline-none"
+          >
+            {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        )}
       </div>
+      {errors[name] && (
+        <span className="text-xs text-red-500 mt-1">
+          {errors[name]?.message as string}
+        </span>
+      )}
     </div>
   );
 };

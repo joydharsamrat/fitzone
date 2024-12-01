@@ -7,4 +7,5 @@ export const baseApi = createApi({
     baseUrl: envConfig.BASE_API,
   }),
   endpoints: () => ({}),
+  tagTypes: ["users"],
 });

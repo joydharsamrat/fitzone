@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ReactNode } from "react";
 import {
   FieldValues,
@@ -5,18 +6,25 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { TDefaultProductValues } from "../../../interface";
 
 const Form = ({
   onSubmit,
   defaultValues,
   children,
+  resolver,
 }: {
   onSubmit: SubmitHandler<FieldValues>;
-  defaultValues: TDefaultProductValues;
+  defaultValues: Record<string, unknown>;
   children: ReactNode;
+  resolver?: any;
 }) => {
-  const methods = useForm({ defaultValues });
+  const formConfig: Record<string, unknown> = {
+    defaultValues,
+    resolver,
+  };
+
+  const methods = useForm(formConfig);
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>{children}</form>

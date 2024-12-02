@@ -30,6 +30,10 @@ const ProductDetails = () => {
   }, [images]);
 
   const handleIncreaseQuantity = () => {
+    if (quantity <= currentQuantity) {
+      return;
+    }
+
     setCurrentQuantity((prev) => prev + 1);
   };
 
@@ -131,6 +135,7 @@ const ProductDetails = () => {
                 <p>Quantity</p>
                 <div className="flex items-center justify-center gap-10 bg-white px-5 py-2 rounded">
                   <button
+                    disabled={currentQuantity === 1}
                     onClick={handleDecreaseQuantity}
                     className="text-xl hover:text-primary font-bold"
                   >
@@ -138,6 +143,7 @@ const ProductDetails = () => {
                   </button>
                   <p>{currentQuantity}</p>
                   <button
+                    disabled={quantity <= currentQuantity}
                     onClick={handleIncreaseQuantity}
                     className="text-xl hover:text-primary font-bold"
                   >

@@ -52,7 +52,7 @@ const Profile = () => {
                 <span className="text-gray-600">{user.address}</span>
               ) : (
                 <button
-                  onClick={() => navigate("/user/edit")}
+                  onClick={() => navigate("/user/profile/edit")}
                   className="text-3xl text-gray-500 rounded-full border-2 w-12 h-12 flex justify-center items-center shadow-inner"
                 >
                   <GoPlus />
@@ -74,7 +74,7 @@ const Profile = () => {
                 <span className="text-gray-600">{user.phone}</span>
               ) : (
                 <button
-                  onClick={() => navigate("/user/edit")}
+                  onClick={() => navigate("/user/profile/edit")}
                   className="text-3xl text-gray-500 rounded-full border-2 w-12 h-12 flex justify-center items-center shadow-inner"
                 >
                   <GoPlus />
@@ -84,7 +84,7 @@ const Profile = () => {
           </div>
 
           <button
-            onClick={() => navigate("/user/edit")}
+            onClick={() => navigate("/user/profile/edit")}
             className="absolute top-4 right-4 text-2xl cursor-pointer text-gray-600 hover:text-gray-800"
           >
             <FaRegEdit />

@@ -29,6 +29,9 @@
 .btn-primary {
   @apply bg-secondary-900 rounded w-fit px-3 py-1 text-white  font-semibold uppercase hover:bg-secondary-700 hover:scale-105 transition-all duration-200 cursor-pointer;
 }
+.btn-secondary {
+  @apply bg-primary-700 rounded w-full px-3 py-2 text-white  font-semibold uppercase hover:bg-primary-900  transition-all duration-200 cursor-pointer;
+}
 
 /* price range styles  */
 

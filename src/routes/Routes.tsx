@@ -16,6 +16,7 @@ import Orders from "../pages/user/Orders";
 import Checkout from "../pages/user/Checkout";
 import StripeProvider from "../components/Providers/StripeProvider";
 import SuccessPage from "../pages/user/Success";
+import EditProfile from "../pages/user/EditProfile";
 
 export const router = createBrowserRouter([
   {
@@ -41,6 +42,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "profile", element: <Profile /> },
+      { path: "profile/edit", element: <EditProfile /> },
       { path: "orders", element: <Orders /> },
       { path: "cart", element: <CartPage /> },
       { path: "success", element: <SuccessPage /> },

@@ -106,3 +106,15 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* loader ends */
+
+/*/// */
+
+.optionsContainer {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 200ms;
+}
+.optionsContainer.open {
+  grid-template-rows: 1fr;
+}

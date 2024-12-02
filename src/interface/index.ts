@@ -78,3 +78,37 @@ export type TCartItem = {
   __v: number;
   _id: string;
 };
+
+export type TOrder = {
+  _id: string;
+  createdAt: string;
+  updatedAt: string;
+  customerDetails: {
+    fullName: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
+  };
+  products: {
+    _id: string;
+    image: string;
+    name: string;
+    price: number;
+    productId: string;
+    quantity: number;
+    subtotal: number;
+  }[];
+  shippingCharge: number;
+  totalPrice: number;
+  transactionId: string;
+  user: {
+    _id: string;
+    name: string;
+    email: string;
+    role: string;
+    createdAt: string;
+  };
+};

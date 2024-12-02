@@ -29,7 +29,7 @@ const SuccessPage = () => {
           </button>
 
           <button
-            onClick={() => handleNavigation("/orders")}
+            onClick={() => handleNavigation("/user/orders")}
             className="py-1 px-2 bg-primary-700 text-white text-sm rounded-lg hover:bg-primary-900 transition animate__animated animate__fadeIn animate__delay-3s"
           >
             View My Orders

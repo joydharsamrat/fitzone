@@ -10,8 +10,8 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["users"],
     }),
     getUserById: builder.query({
-      query: (id) => ({
-        url: `users/${id}`,
+      query: () => ({
+        url: `users/user`,
         method: "GET",
       }),
       providesTags: ["users"],

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { TCartItem } from "../interface";
-import Loader from "../components/shared/Loader";
 import {
   useDeleteCartItemMutation,
   useGetItemsByUserQuery,
   useUpdateItemQuantityMutation,
-} from "../redux/features/cart/cart.api";
-import { useGetProductsStockQuery } from "../redux/features/product/product.api";
-import CartItemRow from "../components/cart/CartItemRow";
-import CartSummary from "../components/cart/CartSummary";
+} from "../../redux/features/cart/cart.api";
+import { useGetProductsStockQuery } from "../../redux/features/product/product.api";
+import { TCartItem } from "../../interface";
+import Loader from "../../components/shared/Loader";
+import CartItemRow from "../../components/cart/CartItemRow";
+import CartSummary from "../../components/cart/CartSummary";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const CartPage = () => {
     }
   };
 
-  const proceedToCheckout = () => navigate("/checkout");
+  const proceedToCheckout = () => navigate(`/user/checkout`);
 
   if (cartLoading || isRemoving || isUpdating) {
     return <Loader />;

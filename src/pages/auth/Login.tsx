@@ -57,7 +57,7 @@ const Login = () => {
         {/* Form Section */}
         <div className="px-5 bg-gradient md:w-1/3 p-10 rounded-b-xl md:rounded-e-xl md:rounded-bl-none">
           <h1 className="text-3xl font-semibold text-center mb-5 text-white">
-            Register
+            Login
           </h1>
 
           <Form

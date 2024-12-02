@@ -10,7 +10,7 @@ import { ShoppingCartIcon } from "@heroicons/react/16/solid";
 
 const NavBar = () => {
   const location = useLocation();
-  const [isSticky, setIsSticky] = useState(false); // State to manage sticky navbar
+  const [isSticky, setIsSticky] = useState(false);
 
   const navigation = [
     { name: "Home", href: "/home", current: location.pathname === "/home" },
@@ -102,7 +102,7 @@ const NavBar = () => {
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               <NavLink
-                to="/cart"
+                to="/user/cart"
                 className="relative rounded-full bg-secondary-700 p-2 text-white hover:text-white hover:bg-secondary-900 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-700"
               >
                 <span className="absolute -inset-1.5" />

@@ -8,7 +8,8 @@ import { useSignUpMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/features/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const Register = () => {
   const defaultValues = {
@@ -20,6 +21,7 @@ const Register = () => {
   const [createUser] = useSignUpMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const onSubmit = async (data: any) => {
     const loadingToast = toast.loading("Loading...");
@@ -46,14 +48,24 @@ const Register = () => {
 
   return (
     <div className="px-5 md:px-20 my-12 md:my-20">
-      <div className="flex flex-col md:flex-row justify-center items-stretch">
+      <div className="flex flex-col md:flex-row justify-center items-center">
         {/* Image Section */}
         <div className="md:w-1/3 p-10 bg-neutral-200 rounded-t-xl md:rounded-s-xl md:rounded-tr-none flex flex-col items-center justify-center">
-          <img
-            src="https://i.ibb.co.com/C9w0nvW/register.webp"
-            alt="Register Illustration"
-            className="w-full h-auto rounded-md"
-          />
+          {/* Reserved space for the image */}
+          <div
+            className={`w-full h-[300px] rounded-md ${
+              isImageLoaded ? "" : "bg-gray-300 animate-pulse"
+            }`}
+          >
+            <img
+              src="https://i.ibb.co.com/C9w0nvW/register.webp"
+              alt="Register Illustration"
+              className={`w-full h-auto rounded-md ${
+                isImageLoaded ? "visible" : "invisible"
+              }`}
+              onLoad={() => setIsImageLoaded(true)}
+            />
+          </div>
         </div>
 
         {/* Form Section */}
@@ -75,7 +87,7 @@ const Register = () => {
               name="confirmPassword"
               label="Confirm Password"
             />
-            <div className="flex justify-end">
+            <div className="flex justify-center">
               <input
                 type="submit"
                 value="Register"
@@ -83,6 +95,17 @@ const Register = () => {
               />
             </div>
           </Form>
+
+          {/* Link to Login Page */}
+          <p className="text-sm text-white mt-5 text-center">
+            Already have an account?{" "}
+            <NavLink
+              to="/login"
+              className="text-blue-300 hover:text-blue-500 underline"
+            >
+              Login
+            </NavLink>
+          </p>
         </div>
       </div>
     </div>

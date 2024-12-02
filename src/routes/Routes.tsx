@@ -17,6 +17,7 @@ import Checkout from "../pages/user/Checkout";
 import StripeProvider from "../components/Providers/StripeProvider";
 import SuccessPage from "../pages/user/Success";
 import EditProfile from "../pages/user/EditProfile";
+import DashboardLayout from "../components/layouts/DashboardLayout";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,6 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <App /> },
       { path: "/home", element: <App /> },
-      { path: "/dashboard", element: <Dashboard /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <Products /> },
@@ -55,6 +55,11 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/admin/dashboard",
+    element: <DashboardLayout />,
+    children: [{ index: true, element: <Dashboard /> }],
   },
   {
     path: "/register",

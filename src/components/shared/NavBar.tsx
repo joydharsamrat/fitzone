@@ -14,8 +14,17 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { ShoppingCartIcon, UserCircleIcon } from "@heroicons/react/16/solid";
 import { useGetItemsByUserQuery } from "../../redux/features/cart/cart.api";
 import { TCartItem } from "../../interface";
+import { useAppDispatch, useAppSelector } from "../../redux/features/hooks";
+import {
+  getCurrentUser,
+  getToken,
+  logout,
+} from "../../redux/features/auth/authSlice";
 
 const NavBar = () => {
+  const token = useAppSelector(getToken);
+  const user = useAppSelector(getCurrentUser);
+  const dispatch = useAppDispatch();
   const { data: cartData } = useGetItemsByUserQuery(undefined);
 
   const cartItemCount = cartData?.data?.reduce(
@@ -33,11 +42,15 @@ const NavBar = () => {
       href: "/products",
       current: location.pathname === "/products",
     },
-    {
-      name: "Dashboard",
-      href: "/dashboard",
-      current: location.pathname === "/dashboard",
-    },
+    ...(token && user?.role === "admin"
+      ? [
+          {
+            name: "Dashboard",
+            href: "/admin/dashboard",
+            current: location.pathname === "/admin/dashboard",
+          },
+        ]
+      : []),
     {
       name: "Contact",
       href: "/contact",
@@ -115,67 +128,93 @@ const NavBar = () => {
               </div>
             </div>
             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 space-x-4">
-              {/* Profile Dropdown */}
-              <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <MenuButton className="flex rounded-full bg-secondary-700 p-2 text-white hover:bg-secondary-900 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-700">
-                    <span className="sr-only">Open user menu</span>
-                    <UserCircleIcon className="h-6 w-6" aria-hidden="true" />
-                  </MenuButton>
-                </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
-                >
-                  <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                    <MenuItem>
-                      {() => (
-                        <NavLink
-                          to="/user/profile"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md"
-                        >
-                          Profile
-                        </NavLink>
-                      )}
-                    </MenuItem>
-                    <MenuItem>
-                      {() => (
-                        <NavLink
-                          to="/user/orders"
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                          Orders
-                        </NavLink>
-                      )}
-                    </MenuItem>
-                    <MenuItem>
-                      {() => (
-                        <NavLink
-                          to="/user/cart"
-                          className="relative flex items-center justify-center rounded-b-md bg-secondary-700 px-4 py-2 text-sm text-white hover:bg-secondary-900 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-700"
-                        >
-                          <div className="relative">
-                            <ShoppingCartIcon
+              {token ? (
+                <>
+                  <button
+                    onClick={() => dispatch(logout())}
+                    className="hidden md:block text-sm text-white px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md"
+                  >
+                    Logout
+                  </button>
+                  {user?.role === "user" && (
+                    <>
+                      {/* Profile Dropdown */}
+                      <Menu
+                        as="div"
+                        className="relative inline-block text-left"
+                      >
+                        <div>
+                          <MenuButton className="flex rounded-full bg-secondary-700 p-2 text-white hover:bg-secondary-900 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-700">
+                            <span className="sr-only">Open user menu</span>
+                            <UserCircleIcon
+                              className="h-6 w-6"
                               aria-hidden="true"
-                              className="h-5 w-5 text-white"
                             />
-
-                            <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-secondary-900 text-[10px] font-bold text-white">
-                              {cartItemCount}
-                            </span>
-                          </div>
-                          <span className="ml-4">Cart</span>
-                        </NavLink>
-                      )}
-                    </MenuItem>
-                  </MenuItems>
-                </Transition>
-              </Menu>
+                          </MenuButton>
+                        </div>
+                        <Transition
+                          as={Fragment}
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                            <MenuItem>
+                              {() => (
+                                <NavLink
+                                  to="/user/profile"
+                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-t-md"
+                                >
+                                  Profile
+                                </NavLink>
+                              )}
+                            </MenuItem>
+                            <MenuItem>
+                              {() => (
+                                <NavLink
+                                  to="/user/orders"
+                                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                >
+                                  Orders
+                                </NavLink>
+                              )}
+                            </MenuItem>
+                            <MenuItem>
+                              {() => (
+                                <NavLink
+                                  to="/user/cart"
+                                  className="relative flex items-center justify-center rounded-b-md bg-secondary-700 px-4 py-2 text-sm text-white hover:bg-secondary-900 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:ring-offset-2 focus:ring-offset-secondary-700"
+                                >
+                                  <div className="relative">
+                                    <ShoppingCartIcon
+                                      aria-hidden="true"
+                                      className="h-5 w-5 text-white"
+                                    />
+                                    <span className="absolute -top-1 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-secondary-900 text-[10px] font-bold text-white">
+                                      {cartItemCount}
+                                    </span>
+                                  </div>
+                                  <span className="ml-4">Cart</span>
+                                </NavLink>
+                              )}
+                            </MenuItem>
+                          </MenuItems>
+                        </Transition>
+                      </Menu>
+                    </>
+                  )}
+                </>
+              ) : (
+                <NavLink
+                  to="/login"
+                  className="text-sm text-white px-4 py-2 border border-white bg-transparent hover:bg-white hover:text-primary-700 rounded-md transition duration-200"
+                >
+                  Login
+                </NavLink>
+              )}
             </div>
           </div>
         </div>
@@ -199,6 +238,15 @@ const NavBar = () => {
               {item.name}
             </DisclosureButton>
           ))}
+          {token && (
+            <DisclosureButton
+              as="button"
+              onClick={() => dispatch(logout())}
+              className="w-full text-sm text-white px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md"
+            >
+              Logout
+            </DisclosureButton>
+          )}
         </div>
       </DisclosurePanel>
     </Disclosure>

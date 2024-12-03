@@ -121,3 +121,16 @@ export type TUser = {
   role: string;
   image?: string;
 };
+
+export type TStats = {
+  totalUsers: {
+    total: number;
+    admin: number;
+    user: number;
+  };
+  totalProducts: {
+    uniqueProducts: number;
+    totalStockUnits: number;
+  };
+  pendingShipments: number;
+};

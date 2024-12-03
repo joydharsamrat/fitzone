@@ -17,7 +17,29 @@ const orderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["orders"],
     }),
+    getAllOrders: builder.query({
+      query: () => ({
+        url: "orders",
+        method: "GET",
+      }),
+      providesTags: ["orders"],
+    }),
+    updateOrderStatus: builder.mutation({
+      query: ({ id, status }) => {
+        return {
+          url: `orders/status/admin/${id}`,
+          method: "PUT",
+          body: { status },
+        };
+      },
+      invalidatesTags: ["orders"],
+    }),
   }),
 });
 
-export const { useCreateOrderMutation, useGetOrderByUserIdQuery } = orderApi;
+export const {
+  useCreateOrderMutation,
+  useGetOrderByUserIdQuery,
+  useGetAllOrdersQuery,
+  useUpdateOrderStatusMutation,
+} = orderApi;

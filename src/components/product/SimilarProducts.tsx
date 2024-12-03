@@ -19,7 +19,10 @@ const SimilarProducts = ({
     (product: TProduct) => product._id !== id
   );
 
-  console.log(products);
+  if (!isLoading && products.length < 1) {
+    return null;
+  }
+
   return (
     <div className="px-5 sm:px-10 max-w-7xl mx-auto my-12">
       <h2 className="text-3xl font-bold text-primary-700  mb-8">

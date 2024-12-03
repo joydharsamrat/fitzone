@@ -53,7 +53,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
           </div>
         </div>
       ),
-      { id: toastId }
+      { id: toastId, duration: Infinity }
     );
   };
 

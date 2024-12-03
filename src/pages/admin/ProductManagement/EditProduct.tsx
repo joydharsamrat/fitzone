@@ -21,6 +21,7 @@ import InputField from "../../../components/shared/form/InputField";
 import SelectInput from "../../../components/shared/form/SelectInput";
 import { TCategory } from "../../../interface";
 import FileInput from "../../../components/shared/form/FileInput";
+import { FaTimes } from "react-icons/fa";
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -151,9 +152,9 @@ const EditProduct = () => {
                       <button
                         type="button"
                         onClick={() => removeImage(img)}
-                        className="absolute top-0 right-0 text-white bg-red-500 rounded-full p-1"
+                        className="absolute -top-1 -right-1 text-white bg-red-500 rounded-full p-1"
                       >
-                        X
+                        <FaTimes />
                       </button>
                     </div>
                   ))}

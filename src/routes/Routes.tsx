@@ -20,6 +20,8 @@ import EditProfile from "../pages/user/EditProfile";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import ProductManagement from "../pages/admin/ProductManagement/ProductManagement";
 import EditProduct from "../pages/admin/ProductManagement/EditProduct";
+import OrderManagement from "../pages/admin/OrderManagement/Orders";
+import UserManagement from "../pages/admin/UserManagement/UserManagement";
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ export const router = createBrowserRouter([
       {
         path: "product-management/add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "order-management",
+        element: <OrderManagement />,
+      },
+      {
+        path: "user-management",
+        element: <UserManagement />,
       },
     ],
   },

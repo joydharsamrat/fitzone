@@ -1,7 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaChevronDown } from "react-icons/fa";
-import { TOrder } from "../../interface";
 import "animate.css";
-import { formatDate } from "../../utils/FormatDate";
+import { TOrder } from "../../../interface";
+import { formatDate } from "../../../utils/FormatDate";
+import { useUpdateOrderStatusMutation } from "../../../redux/features/order/order.api";
+import {
+  OrderStatus,
+  statusColors,
+  statusText,
+} from "../../../constants/OrderStatusConstants";
+import toast from "react-hot-toast";
 
 type OrderProps = {
   order: TOrder;
@@ -10,26 +18,85 @@ type OrderProps = {
 };
 
 const Order = ({ order, isShippingOpen, handleShippingOpen }: OrderProps) => {
-  const statusText: Record<string, string> = {
-    pending: "Preparing for delivery",
-    shipped: "On the way",
-    delivered: "Delivered",
-    canceled: "Order canceled",
-    returned: "Order returned",
+  const [updateOrder] = useUpdateOrderStatusMutation();
+
+  const handleOrderStatusUpdate = async (id: string, status: string) => {
+    const loadingToast = toast.loading("Loading...");
+    try {
+      const res = await updateOrder({ id, status });
+      if (res.error) {
+        throw new Error("Failed to update status");
+      }
+      toast.success(`${status} successfully!`, { id: loadingToast });
+    } catch (error: any) {
+      toast.error(
+        error.message ||
+          error?.data?.message ||
+          "Failed to update. Please try again.",
+        {
+          id: loadingToast,
+        }
+      );
+      console.log(error);
+    }
   };
 
-  const statusColors: Record<string, string> = {
-    pending: "text-yellow-600",
-    shipped: "text-blue-600",
-    delivered: "text-green-600",
-    canceled: "text-red-600",
-    returned: "text-purple-600",
+  const renderActions = () => {
+    switch (order.status) {
+      case "pending":
+        return (
+          <div className="flex gap-2 mt-4">
+            <button
+              onClick={() =>
+                handleOrderStatusUpdate(order._id, OrderStatus.CANCELED)
+              }
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() =>
+                handleOrderStatusUpdate(order._id, OrderStatus.SHIPPED)
+              }
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Ship
+            </button>
+          </div>
+        );
+      case "shipped":
+        return (
+          <div className="flex gap-2 mt-4">
+            <button
+              onClick={() =>
+                handleOrderStatusUpdate(order._id, OrderStatus.DELIVERED)
+              }
+              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              Deliver
+            </button>
+            <button
+              onClick={() =>
+                handleOrderStatusUpdate(order._id, OrderStatus.RETURNED)
+              }
+              className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
+            >
+              Return
+            </button>
+          </div>
+        );
+      case "delivered":
+      case "canceled":
+      case "returned":
+      default:
+        return null;
+    }
   };
 
   return (
     <div className="border border-gray-200 rounded-lg p-6 box-shadow bg-white relative">
       {/* Order Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start ">
+      <div className="flex flex-col md:flex-row justify-between items-start">
         <div>
           <p className="text-lg font-semibold">Order ID: {order._id}</p>
           <p className="text-sm text-gray-600">
@@ -136,6 +203,9 @@ const Order = ({ order, isShippingOpen, handleShippingOpen }: OrderProps) => {
           </p>
         </div>
       </div>
+
+      {/* Admin Actions */}
+      {renderActions()}
 
       {/* Shipping Toggle Button */}
       <div

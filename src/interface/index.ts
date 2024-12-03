@@ -104,6 +104,7 @@ export type TOrder = {
   shippingCharge: number;
   totalPrice: number;
   transactionId: string;
+  status: string;
   user: {
     _id: string;
     name: string;
@@ -111,4 +112,12 @@ export type TOrder = {
     role: string;
     createdAt: string;
   };
+};
+
+export type TUser = {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  image?: string;
 };

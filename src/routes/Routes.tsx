@@ -18,6 +18,7 @@ import StripeProvider from "../components/Providers/StripeProvider";
 import SuccessPage from "../pages/user/Success";
 import EditProfile from "../pages/user/EditProfile";
 import DashboardLayout from "../components/layouts/DashboardLayout";
+import ProductManagement from "../pages/admin/ProductManagement/ProductManagement";
 
 export const router = createBrowserRouter([
   {
@@ -59,7 +60,17 @@ export const router = createBrowserRouter([
   {
     path: "/admin/dashboard",
     element: <DashboardLayout />,
-    children: [{ index: true, element: <Dashboard /> }],
+    children: [
+      { index: true, element: <Dashboard /> },
+      {
+        path: "product-management",
+        element: <ProductManagement />,
+      },
+      {
+        path: "product-management/add-product",
+        element: <AddProduct />,
+      },
+    ],
   },
   {
     path: "/register",

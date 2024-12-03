@@ -8,10 +8,15 @@ import Loader from "../../components/shared/Loader";
 import Form from "../../components/shared/form/Form";
 import FileInput from "../../components/shared/form/FileInput";
 import { useState } from "react";
-import productDataValidationSchema from "../../utils/productDataValidation";
 import useUploadImage from "../../hooks/useUploadImage";
 import { useCreateProductMutation } from "../../redux/features/product/product.api";
 import toast from "react-hot-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  imageValidation,
+  productDataValidationSchema,
+} from "../../schemas/ProductSchema";
+import { ZodError } from "zod";
 
 const AddProduct = () => {
   const { isLoading, data } = useGetAllCategoriesQuery(undefined);
@@ -37,9 +42,10 @@ const AddProduct = () => {
       quantity: parseInt(data.quantity, 10),
       images: data.images ? Array.from(data.images) : [],
     };
-    const validatedData = productDataValidationSchema.parse(parsedData);
-
+    console.log({ parsedData });
     try {
+      const validatedData = imageValidation.parse(parsedData);
+
       const imgUrls = await Promise.all(
         validatedData.images.map((img) => uploadImage(img))
       );
@@ -57,15 +63,18 @@ const AddProduct = () => {
         });
       }
     } catch (err: any) {
-      const message =
+      let message =
         err?.data?.message ||
         err?.message ||
         "Something went wrong. Please try again!";
 
+      if (err instanceof ZodError) {
+        message = err.issues.map((issue) => issue.message);
+      }
+
       toast.error(message, {
         id: "product",
       });
-      console.error("Error:", err);
     } finally {
       setLoading(false);
     }
@@ -76,9 +85,9 @@ const AddProduct = () => {
   }
 
   return (
-    <div className="px-20 my-20">
+    <div className="">
       <h1 className="text-3xl font-semibold text-center mb-10">Add Product</h1>
-      <div className="flex justify-center items-stretch">
+      <div className="flex justify-center items-center">
         <div className="w-1/3 p-10 bg-neutral-200 rounded-s-xl flex flex-col items-center justify-between">
           <div>
             {selectedImages && selectedImages.length > 0
@@ -107,7 +116,11 @@ const AddProduct = () => {
           </label>
         </div>
         <div className="bg-gradient w-1/3 p-10 rounded-e-xl">
-          <Form onSubmit={onSubmit} defaultValues={defaultValues}>
+          <Form
+            onSubmit={onSubmit}
+            defaultValues={defaultValues}
+            resolver={zodResolver(productDataValidationSchema)}
+          >
             <InputField type="text" name="name" label="Name" />
             <InputField type="number" name="price" label="Price" />
             <Controller

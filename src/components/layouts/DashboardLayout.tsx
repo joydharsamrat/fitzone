@@ -1,16 +1,19 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Icons for burger and close menu
+import { FaArrowRight, FaChevronDown } from "react-icons/fa";
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [isProductOpen, setIsProductOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
   };
 
   return (
-    <div className="flex flex-col bg-neutral-200">
+    <div className="flex flex-col ">
       <div className="flex flex-col md:flex-row items-stretch  w-full mx-auto relative ">
         {/* Sidebar */}
         <div>
@@ -46,39 +49,68 @@ const AdminLayout = () => {
                 <li onClick={toggleSidebar}>
                   <NavLink
                     to="/admin/dashboard"
-                    className="block w-full text-left p-2 rounded-lg bg-neutral-100 hover:bg-neutral-300"
+                    className="block w-full text-left p-2  text-white"
                   >
-                    Home
+                    Dashboard
+                  </NavLink>
+                </li>
+
+                <li onClick={toggleSidebar}>
+                  <button
+                    onClick={() => setIsProductOpen(!isProductOpen)}
+                    className=" w-full text-left p-2  text-white flex items-center gap-2"
+                  >
+                    Product management{" "}
+                    <span
+                      style={{
+                        transform: isProductOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      <FaChevronDown />
+                    </span>
+                  </button>
+                  <div
+                    className={`ml-5 optionsContainer ${
+                      isProductOpen ? "open" : ""
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <NavLink
+                        to="/admin/dashboard/product-management"
+                        className="flex items-center gap-2 w-full text-left p-2  text-white"
+                      >
+                        <span>
+                          <FaArrowRight />
+                        </span>{" "}
+                        Products
+                      </NavLink>
+                      <NavLink
+                        to="/admin/dashboard/product-management/add-product"
+                        className="flex items-center gap-2 w-full text-left p-2  text-white"
+                      >
+                        <span>
+                          <FaArrowRight />
+                        </span>{" "}
+                        Add Product
+                      </NavLink>
+                    </div>
+                  </div>
+                </li>
+                <li onClick={toggleSidebar}>
+                  <NavLink
+                    to="/admin/dashboard/order-management"
+                    className="block w-full text-left p-2 text-white"
+                  >
+                    Order Management
                   </NavLink>
                 </li>
                 <li onClick={toggleSidebar}>
                   <NavLink
-                    to="/admin/dashboard/bookings"
-                    className="block w-full text-left p-2 rounded-lg bg-neutral-100 hover:bg-neutral-300"
-                  >
-                    Bookings
-                  </NavLink>
-                </li>
-                <li onClick={toggleSidebar}>
-                  <NavLink
-                    to="/admin/dashboard/services"
-                    className="block w-full text-left p-2 rounded-lg bg-neutral-100 hover:bg-neutral-300"
-                  >
-                    Product Management
-                  </NavLink>
-                </li>
-                <li onClick={toggleSidebar}>
-                  <NavLink
-                    to="/admin/dashboard/slots"
-                    className="block w-full text-left p-2 rounded-lg bg-neutral-100 hover:bg-neutral-300"
-                  >
-                    Orders
-                  </NavLink>
-                </li>
-                <li onClick={toggleSidebar}>
-                  <NavLink
-                    to="/admin/dashboard/users"
-                    className="block w-full text-left p-2 rounded-lg bg-neutral-100 hover:bg-neutral-300"
+                    to="/admin/dashboard/user-management"
+                    className="block w-full text-left p-2 text-white "
                   >
                     User Management
                   </NavLink>
@@ -117,7 +149,7 @@ const AdminLayout = () => {
               )}
             </button>
           </header>
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-7xl mx-auto p-5">
             <Outlet />
           </div>
         </main>

@@ -1,5 +1,4 @@
-import * as z from "zod";
-
+import { z } from "zod";
 export const checkoutSchema = z.object({
   fullName: z.string().min(1, "Full Name is required"),
   email: z

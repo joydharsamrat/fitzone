@@ -42,7 +42,6 @@ const AddProduct = () => {
       quantity: parseInt(data.quantity, 10),
       images: data.images ? Array.from(data.images) : [],
     };
-    console.log({ parsedData });
     try {
       const validatedData = imageValidation.parse(parsedData);
 
@@ -111,7 +110,7 @@ const AddProduct = () => {
                   ))}
           </div>
 
-          <label className="btn-primary" htmlFor="images">
+          <label className="btn-primary mt-5" htmlFor="images">
             Select Images
           </label>
         </div>

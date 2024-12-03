@@ -28,8 +28,8 @@ const FileInput = ({
             accept={accept}
             onChange={(e) => {
               const files = e.target.files;
-              if (files && files.length > 3) {
-                toast.error("You can only upload up to 3 images.");
+              if (files && files.length > max) {
+                toast.error(`You can only upload up to ${max} images.`);
                 e.target.value = "";
               } else {
                 field.onChange(files);

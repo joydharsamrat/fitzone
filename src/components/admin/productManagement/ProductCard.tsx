@@ -107,7 +107,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
       </button>
 
       <Link
-        to={`/admin/dashboard/products/edit/${product._id}`}
+        to={`/admin/dashboard/product-management/products/edit/${product._id}`}
         className="absolute top-2 right-2 text-white bg-primary-700 p-2 rounded-full bg-opacity-40 text-xl"
       >
         <AiFillEdit />

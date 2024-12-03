@@ -17,14 +17,18 @@ export const imageValidation = z.object({
 export const productDataValidationSchema = z.object({
   name: z.string().min(1, "Name is required"),
   price: z
-    .string()
-    .refine((value) => !isNaN(parseFloat(value)), "Price must be a number")
-    .transform((value) => parseFloat(value)),
+    .union([z.string(), z.number()]) // Allows both string and number
+    .refine((value) => !isNaN(Number(value)), "Price must be a number") // Ensures the value is a valid number
+    .transform((value) =>
+      typeof value === "string" ? parseFloat(value) : value
+    ), // Converts string to number if necessary
   category: z.string().min(1, "Category is required"),
   description: z.string().min(10, "Description must be at least 10 characters"),
   quantity: z
-    .string()
-    .refine((value) => !isNaN(parseInt(value, 10)), "Quantity must be a number")
-    .transform((value) => parseInt(value, 10)),
+    .union([z.string(), z.number()]) // Allows both string and number
+    .refine((value) => !isNaN(Number(value)), "Quantity must be a number") // Ensures the value is a valid number
+    .transform((value) =>
+      typeof value === "string" ? parseInt(value, 10) : value
+    ), // Converts string to number if necessary
   images: z.any().optional(),
 });

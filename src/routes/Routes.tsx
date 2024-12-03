@@ -19,6 +19,7 @@ import SuccessPage from "../pages/user/Success";
 import EditProfile from "../pages/user/EditProfile";
 import DashboardLayout from "../components/layouts/DashboardLayout";
 import ProductManagement from "../pages/admin/ProductManagement/ProductManagement";
+import EditProduct from "../pages/admin/ProductManagement/EditProduct";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: "product-management/products",
         element: <ProductManagement />,
+      },
+      {
+        path: "product-management/products/edit/:id",
+        element: <EditProduct />,
       },
       {
         path: "product-management/add-product",

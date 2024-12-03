@@ -9,6 +9,7 @@ import PriceRangeSelector from "../../components/product/pricerangeSelector";
 import ProductCardSkeleton from "../../components/shared/loaders/ProductCardSkeleton";
 import ProductsBanner from "../../components/product/ProductsBanner";
 import styles from "../../styles/product.module.css";
+import { scrollToTop } from "../../utils/ScrollToTop";
 
 const Products = () => {
   const [searchParams] = useSearchParams();
@@ -27,14 +28,6 @@ const Products = () => {
   // Fetch categories for filters
   const { data: categoryData, isLoading: isCategoryLoading } =
     useGetAllCategoriesQuery(undefined);
-
-  // Scroll to top on filter or pagination changes
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
   // Preselect category based on URL query parameter
   useEffect(() => {

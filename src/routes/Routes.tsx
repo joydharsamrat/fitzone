@@ -63,7 +63,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Dashboard /> },
       {
-        path: "product-management",
+        path: "product-management/products",
         element: <ProductManagement />,
       },
       {

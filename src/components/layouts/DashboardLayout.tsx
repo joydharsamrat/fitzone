@@ -79,7 +79,7 @@ const AdminLayout = () => {
                   >
                     <div className="overflow-hidden">
                       <NavLink
-                        to="/admin/dashboard/product-management"
+                        to="/admin/dashboard/product-management/products"
                         className="flex items-center gap-2 w-full text-left p-2  text-white"
                       >
                         <span>

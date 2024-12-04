@@ -24,7 +24,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container p-6">
-      <h1 className="text-2xl font-bold mb-6 text-center">Admin Dashboard</h1>
       <DashboardStats stats={stats} isStatsLoading={isStatsLoading} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-20 space-y-16 md:space-y-0">

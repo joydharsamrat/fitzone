@@ -25,7 +25,9 @@ const NavBar = () => {
   const token = useAppSelector(getToken);
   const user = useAppSelector(getCurrentUser);
   const dispatch = useAppDispatch();
-  const { data: cartData } = useGetItemsByUserQuery(undefined);
+  const { data: cartData } = useGetItemsByUserQuery(undefined, {
+    skip: !token || user?.role !== "user",
+  });
 
   const cartItemCount = cartData?.data?.reduce(
     (sum: number, item: TCartItem) => sum + item.quantity,

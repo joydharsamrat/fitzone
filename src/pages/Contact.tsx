@@ -28,12 +28,12 @@ const Contact = () => {
         envConfig.EMAILJS_PUBLIC_KEY
       )
       .then(
-        (result: any) => {
+        (_result: any) => {
           (e.target as HTMLFormElement).reset();
           toast.success("Message sent");
           setIsLoading(false);
         },
-        (error: any) => {
+        (_error: any) => {
           toast.error("Failed to send message");
           setIsLoading(false);
         }

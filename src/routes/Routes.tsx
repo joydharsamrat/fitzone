@@ -4,7 +4,6 @@ import App from "../App";
 import Dashboard from "../pages/admin/Dashboard";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
-import AddProduct from "../pages/product/AddProduct";
 import Products from "../pages/product/Products";
 import ProductDetails from "../pages/product/ProductDetails";
 import Register from "../pages/auth/Register";
@@ -22,6 +21,7 @@ import ProductManagement from "../pages/admin/ProductManagement/ProductManagemen
 import EditProduct from "../pages/admin/ProductManagement/EditProduct";
 import OrderManagement from "../pages/admin/OrderManagement/Orders";
 import UserManagement from "../pages/admin/UserManagement/UserManagement";
+import AddProduct from "../pages/admin/ProductManagement/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -34,7 +34,6 @@ export const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <Products /> },
       { path: "/products/:productId", element: <ProductDetails /> },
-      { path: "/add-product", element: <AddProduct /> },
     ],
   },
   {

@@ -9,7 +9,25 @@ const imageGalleryApi = baseApi.injectEndpoints({
       }),
       providesTags: ["orders", "products", "users"],
     }),
+    getRevenueData: builder.query({
+      query: () => ({
+        url: "analytics/revenue",
+        method: "GET",
+      }),
+      providesTags: ["orders"],
+    }),
+    getOrderStatusStats: builder.query({
+      query: () => ({
+        url: "analytics/order-status",
+        method: "GET",
+      }),
+      providesTags: ["orders"],
+    }),
   }),
 });
 
-export const { useGetStatsQuery } = imageGalleryApi;
+export const {
+  useGetStatsQuery,
+  useGetRevenueDataQuery,
+  useGetOrderStatusStatsQuery,
+} = imageGalleryApi;

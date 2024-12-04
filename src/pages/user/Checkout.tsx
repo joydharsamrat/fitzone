@@ -47,7 +47,9 @@ const CheckoutPage = () => {
     setIsProcessing(true);
     setErrorMessage(null); // Clear previous errors
 
-    const finalTotal = total ? total + shippingCharge : 0;
+    const finalTotal = total
+      ? parseFloat(total.toFixed(2)) + shippingCharge
+      : 0;
 
     const products = cartData?.data?.map((item: TCartItem) => ({
       productId: item.product._id,

@@ -26,7 +26,7 @@ const DashboardStats = ({ stats, isStatsLoading }: DashboardStatsProps) => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Total Users Card */}
           <div
-            className="bg-gradient p-6 border-2 border-white rounded-xl shadow-lg animate__animated animate__fadeInUp"
+            className="bg-gradient p-6 border-2 border-white rounded-xl shadow-lg animate__animated animate__fadeIn"
             data-wow-duration="1s"
           >
             <h3 className="text-xl font-semibold text-white text-center mb-4">
@@ -51,7 +51,7 @@ const DashboardStats = ({ stats, isStatsLoading }: DashboardStatsProps) => {
 
           {/* Total Products Card */}
           <div
-            className="bg-gradient p-6 border-2  rounded-xl shadow-lg border-white animate__animated animate__fadeInUp"
+            className="bg-gradient p-6 border-2  rounded-xl shadow-lg border-white animate__animated animate__fadeIn"
             data-wow-duration="1s"
           >
             <h3 className="text-xl font-semibold text-white text-center mb-4">
@@ -79,7 +79,7 @@ const DashboardStats = ({ stats, isStatsLoading }: DashboardStatsProps) => {
 
           {/* Pending Shipments Card */}
           <div
-            className="bg-gradient p-6 border-2  rounded-xl shadow-lg border-white animate__animated animate__fadeInUp"
+            className="bg-gradient p-6 border-2  rounded-xl shadow-lg border-white animate__animated animate__fadeIn"
             data-wow-duration="1s"
           >
             <h3 className="text-xl font-semibold text-white text-center mb-4">

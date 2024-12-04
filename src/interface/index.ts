@@ -134,3 +134,8 @@ export type TStats = {
   };
   pendingShipments: number;
 };
+
+export type TOrderStatus = {
+  count: number;
+  status: string;
+};

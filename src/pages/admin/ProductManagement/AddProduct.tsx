@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Controller, FieldValues } from "react-hook-form";
-import SelectInput from "../../components/shared/form/SelectInput";
-import InputField from "../../components/shared/form/InputField";
-import { useGetAllCategoriesQuery } from "../../redux/features/category/categoryApi";
-import { TCategory } from "../../interface";
-import Loader from "../../components/shared/Loader";
-import Form from "../../components/shared/form/Form";
-import FileInput from "../../components/shared/form/FileInput";
 import { useState } from "react";
-import useUploadImage from "../../hooks/useUploadImage";
-import { useCreateProductMutation } from "../../redux/features/product/product.api";
 import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ZodError } from "zod";
+import { useGetAllCategoriesQuery } from "../../../redux/features/category/categoryApi";
+import { useCreateProductMutation } from "../../../redux/features/product/product.api";
+import useUploadImage from "../../../hooks/useUploadImage";
 import {
   imageValidation,
   productDataValidationSchema,
-} from "../../schemas/ProductSchema";
-import { ZodError } from "zod";
+} from "../../../schemas/ProductSchema";
+import Loader from "../../../components/shared/Loader";
+import Form from "../../../components/shared/form/Form";
+import InputField from "../../../components/shared/form/InputField";
+import SelectInput from "../../../components/shared/form/SelectInput";
+import { TCategory } from "../../../interface";
+import FileInput from "../../../components/shared/form/FileInput";
 
 const AddProduct = () => {
   const { isLoading, data } = useGetAllCategoriesQuery(undefined);

@@ -9,6 +9,7 @@ import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { NavLink, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../schemas/LoginSchema";
+import styles from "../../styles/login.module.css";
 
 const Login = () => {
   const defaultValues = {
@@ -43,24 +44,21 @@ const Login = () => {
   };
 
   return (
-    <div className="px-5 md:px-20 my-12 md:my-20">
-      <div className="flex flex-col md:flex-row justify-center items-center">
-        {/* Image Section */}
-        {/* Image Section */}
-        <div className="md:w-1/3 p-10 bg-neutral-200 rounded-t-xl md:rounded-s-xl md:rounded-tr-none flex flex-col items-center justify-center">
-          <div className="relative w-full h-[300px] md:h-[400px]">
-            <img
-              src="https://i.ibb.co.com/C9w0nvW/register.webp"
-              alt="Register Illustration"
-              className="w-full h-full object-cover rounded-md"
-              loading="lazy"
-            />
-          </div>
+    <div className={styles.container}>
+      <div className="flex flex-col md:flex-row justify-around items-center min-h-screen px-5 py-12">
+        {/* Text Section */}
+        <div className="md:w-1/3  rounded-md  flex flex-col items-center justify-center text-white">
+          <h2 className="text-2xl font-semibold text-center  mb-4">
+            Welcome to FITZONE!
+          </h2>
+          <p className="text-center ">
+            Log in to access your fitness goals, track your progress, and enjoy
+            the best fitness equipment and content tailored just for you.
+          </p>
         </div>
 
         {/* Form Section */}
-        {/* Form Section */}
-        <div className="px-5 bg-gradient md:w-1/3 p-10 rounded-b-xl md:rounded-e-xl md:rounded-bl-none">
+        <div className="bg-gradient md:w-1/3 p-10 rounded-md">
           <h1 className="text-3xl font-semibold text-center mb-5 text-white">
             Login
           </h1>

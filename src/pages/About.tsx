@@ -7,14 +7,14 @@ import {
 } from "react-icons/fa";
 import styles from "../styles/about.module.css";
 
-import img1 from "../../public/assets/images/partners/Adidas-Logo.png";
-import img2 from "../../public/assets/images/partners/life-fitness-logo.webp";
-import img3 from "../../public/assets/images/partners/Nike-Logo.png";
-import img4 from "../../public/assets/images/partners/Peloton-Cycle-Logo.png";
-import img5 from "../../public/assets/images/partners/Reebok-Logo.png";
-import img6 from "../../public/assets/images/partners/Under-Armour-Logo.png";
-
-const imgs = [img1, img2, img3, img4, img5, img6];
+const imgs = [
+  "/assets/images/partners/Adidas-Logo.png",
+  "/assets/images/partners/life-fitness-logo.webp",
+  "/assets/images/partners/Nike-Logo.png",
+  "/assets/images/partners/Peloton-Cycle-Logo.png",
+  "/assets/images/partners/Reebok-Logo.png",
+  "/assets/images/partners/Under-Armour-Logo.png",
+];
 
 const About = () => {
   return (

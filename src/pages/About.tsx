@@ -19,7 +19,7 @@ const imgs = [img1, img2, img3, img4, img5, img6];
 const About = () => {
   return (
     <div className=" py-12">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6">
         <h1 className="text-4xl font-bold text-center text-gray-800 mb-8 animate__animated animate__fadeIn">
           About Us
         </h1>
@@ -70,87 +70,83 @@ const About = () => {
             </div>
           </section>
           <div className=" py-12">
-            <div className="max-w-6xl mx-auto px-6 md:px-12">
-              <div className="space-y-10">
-                {/* Section 1: Overview */}
-                <section className="text-center animate__animated animate__fadeInUp">
-                  <h2 className="text-2xl font-semibold text-primary-700 mb-4">
-                    Our Commitment to Your Success
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    Our journey is built around providing you with the tools,
-                    support, and motivation you need to achieve your fitness
-                    goals. From high-quality equipment to expert advice, we are
-                    committed to empowering you every step of the way.
-                  </p>
-                </section>
+            <div className="space-y-10">
+              {/* Section 1: Overview */}
+              <section className="text-center animate__animated animate__fadeInUp">
+                <h2 className="text-2xl font-semibold text-primary-700 mb-4">
+                  Our Commitment to Your Success
+                </h2>
+                <p className="text-gray-600 leading-relaxed">
+                  Our journey is built around providing you with the tools,
+                  support, and motivation you need to achieve your fitness
+                  goals. From high-quality equipment to expert advice, we are
+                  committed to empowering you every step of the way.
+                </p>
+              </section>
 
-                {/* Section 2: The Milestones */}
-                <section className="grid md:grid-cols-3 gap-8 text-center">
-                  <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInLeft">
-                    <FaDumbbell className="text-4xl text-blue-500 mb-4 mx-auto" />
-                    <h3 className="text-xl font-medium text-gray-800 mb-2">
-                      Start Strong
-                    </h3>
-                    <p className="text-gray-600">
-                      Begin your fitness journey with top-tier equipment
-                      designed to meet all your fitness needs, from strength
-                      training to cardio.
-                    </p>
-                  </div>
-                  <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInUp">
-                    <FaRunning className="text-4xl text-red-500 mb-4 mx-auto" />
-                    <h3 className="text-xl font-medium text-gray-800 mb-2">
-                      Stay Consistent
-                    </h3>
-                    <p className="text-gray-600">
-                      Build a sustainable routine with a wide variety of gear
-                      that suits all fitness levels, helping you stay on track
-                      and motivated.
-                    </p>
-                  </div>
-                  <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInRight">
-                    <FaTrophy className="text-4xl text-yellow-500 mb-4 mx-auto" />
-                    <h3 className="text-xl font-medium text-gray-800 mb-2">
-                      Achieve Your Goals
-                    </h3>
-                    <p className="text-gray-600">
-                      Push your limits and celebrate your achievements with
-                      professional equipment that supports your progress and
-                      celebrates your success.
-                    </p>
-                  </div>
-                </section>
-              </div>
+              {/* Section 2: The Milestones */}
+              <section className="grid md:grid-cols-3 gap-8 text-center">
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInLeft">
+                  <FaDumbbell className="text-4xl text-blue-500 mb-4 mx-auto" />
+                  <h3 className="text-xl font-medium text-gray-800 mb-2">
+                    Start Strong
+                  </h3>
+                  <p className="text-gray-600">
+                    Begin your fitness journey with top-tier equipment designed
+                    to meet all your fitness needs, from strength training to
+                    cardio.
+                  </p>
+                </div>
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInUp">
+                  <FaRunning className="text-4xl text-red-500 mb-4 mx-auto" />
+                  <h3 className="text-xl font-medium text-gray-800 mb-2">
+                    Stay Consistent
+                  </h3>
+                  <p className="text-gray-600">
+                    Build a sustainable routine with a wide variety of gear that
+                    suits all fitness levels, helping you stay on track and
+                    motivated.
+                  </p>
+                </div>
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInRight">
+                  <FaTrophy className="text-4xl text-yellow-500 mb-4 mx-auto" />
+                  <h3 className="text-xl font-medium text-gray-800 mb-2">
+                    Achieve Your Goals
+                  </h3>
+                  <p className="text-gray-600">
+                    Push your limits and celebrate your achievements with
+                    professional equipment that supports your progress and
+                    celebrates your success.
+                  </p>
+                </div>
+              </section>
             </div>
           </div>
 
           <section className="py-12 ">
-            <div className="max-w-6xl mx-auto text-center">
-              <h2 className="text-2xl font-semibold text-primary-700 mb-6">
-                Our Trusted Partners
-              </h2>
-              <div className="flex items-center gap-20 pointer-events-none overflow-hidden mt-10">
-                <div className={`flex gap-20 items-center ${styles.partners}`}>
-                  {imgs?.map((img, i) => (
-                    <img
-                      key={i}
-                      className={`${"max-h-full max-w-[150px]"} `}
-                      src={img}
-                      alt="#"
-                    />
-                  ))}
-                </div>
-                <div className={`flex gap-20 items-center  ${styles.partners}`}>
-                  {imgs?.map((img, i) => (
-                    <img
-                      key={i}
-                      className={`${"max-h-full max-w-[150px]"} `}
-                      src={img}
-                      alt="#"
-                    />
-                  ))}
-                </div>
+            <h2 className="text-2xl font-semibold text-primary-700 mb-6 text-center">
+              Our Trusted Partners
+            </h2>
+            <div className="flex items-center gap-20 pointer-events-none overflow-hidden mt-10">
+              <div className={`flex gap-20 items-center ${styles.partners}`}>
+                {imgs?.map((img, i) => (
+                  <img
+                    key={i}
+                    className={`${"max-h-full max-w-[150px]"} `}
+                    src={img}
+                    alt="#"
+                  />
+                ))}
+              </div>
+              <div className={`flex gap-20 items-center  ${styles.partners}`}>
+                {imgs?.map((img, i) => (
+                  <img
+                    key={i}
+                    className={`${"max-h-full max-w-[150px]"} `}
+                    src={img}
+                    alt="#"
+                  />
+                ))}
               </div>
             </div>
           </section>

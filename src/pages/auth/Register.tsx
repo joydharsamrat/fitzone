@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../redux/features/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate, NavLink } from "react-router-dom";
-import { useState } from "react";
+import styles from "../../styles/register.module.css";
 
 const Register = () => {
   const defaultValues = {
@@ -21,7 +21,6 @@ const Register = () => {
   const [createUser] = useSignUpMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const onSubmit = async (data: any) => {
     const loadingToast = toast.loading("Loading...");
@@ -47,29 +46,21 @@ const Register = () => {
   };
 
   return (
-    <div className="px-5 md:px-20 my-12 md:my-20">
-      <div className="flex flex-col md:flex-row justify-center items-center">
+    <div className={styles.container}>
+      <div className="flex flex-col md:flex-row justify-around items-center min-h-screen max-w-7xl mx-auto py-12 md:py-20">
         {/* Image Section */}
-        <div className="md:w-1/3 p-10 bg-neutral-200 rounded-t-xl md:rounded-s-xl md:rounded-tr-none flex flex-col items-center justify-center">
-          {/* Reserved space for the image */}
-          <div
-            className={`w-full h-[300px] rounded-md ${
-              isImageLoaded ? "" : "bg-gray-300 animate-pulse"
-            }`}
-          >
-            <img
-              src="https://i.ibb.co.com/C9w0nvW/register.webp"
-              alt="Register Illustration"
-              className={`w-full h-auto rounded-md ${
-                isImageLoaded ? "visible" : "invisible"
-              }`}
-              onLoad={() => setIsImageLoaded(true)}
-            />
-          </div>
+        <div className="md:w-1/3 text-white  flex flex-col items-center justify-center ">
+          <h2 className="text-2xl font-semibold text-center  mb-4">
+            Join the FITZONE Community!
+          </h2>
+          <p className="text-center  mb-6 md:mb-0">
+            Create an account today to start tracking your fitness journey,
+            access exclusive content, and shop for premium fitness equipment!
+          </p>
         </div>
 
         {/* Form Section */}
-        <div className="px-5 bg-gradient md:w-1/3 p-10 rounded-b-xl md:rounded-e-xl md:rounded-bl-none">
+        <div className="bg-gradient md:w-1/3 p-10 rounded-md">
           <h1 className="text-3xl font-semibold text-center mb-5 text-white">
             Register
           </h1>

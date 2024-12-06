@@ -45,13 +45,13 @@ const Login = () => {
 
   return (
     <div className={styles.container}>
-      <div className="flex flex-col md:flex-row justify-around items-center min-h-screen px-5 py-12">
+      <div className="flex flex-col md:flex-row justify-around items-center min-h-screen px-5 py-12 max-w-7xl mx-auto">
         {/* Text Section */}
         <div className="md:w-1/3  rounded-md  flex flex-col items-center justify-center text-white">
           <h2 className="text-2xl font-semibold text-center  mb-4">
             Welcome to FITZONE!
           </h2>
-          <p className="text-center ">
+          <p className="text-center mb-6 md:mb-0">
             Log in to access your fitness goals, track your progress, and enjoy
             the best fitness equipment and content tailored just for you.
           </p>

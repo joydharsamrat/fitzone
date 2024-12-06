@@ -1,0 +1,8 @@
+.container {
+  min-height: 100vh;
+  background-image: linear-gradient(rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 0.7)),
+    url(https://i.ibb.co.com/9g84tKn/register-bg.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}

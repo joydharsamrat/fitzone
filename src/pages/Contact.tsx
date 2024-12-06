@@ -13,7 +13,6 @@ import { envConfig } from "../config/envConfig";
 const Contact = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  // Type the form reference
   const form = useRef<HTMLFormElement | null>(null);
 
   const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,9 +45,9 @@ const Contact = () => {
 
   return (
     <div className={styles.container}>
-      <div className="max-w-5xl w-full px-5 md:px-20 mx-auto py-12 md:py-20">
-        <div className="flex flex-col md:flex-row items-center space-y-6 md:space-y-0">
-          <div className="md:w-1/2 text-white">
+      <div className="max-w-7xl w-full px-5 md:px-20 mx-auto py-12 md:py-20">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+          <div className="md:w-1/3 text-white">
             <h2 className="text-3xl font-semibold mb-4">Contact Info</h2>
             <p className="mb-6">
               Have questions or need assistance? Reach out to us using the
@@ -77,7 +76,7 @@ const Contact = () => {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="md:w-1/2 bg-white p-5 rounded-md">
+          <div className="md:w-1/3 bg-white p-5 rounded-md">
             <h2 className="text-3xl font-semibold text-gray-800 mb-6">
               Send Us a Message
             </h2>

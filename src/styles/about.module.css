@@ -1,0 +1,13 @@
+.partners {
+  animation: move-rtl 40000ms linear infinite;
+}
+
+@keyframes move-rtl {
+  from {
+    transform: translateX(0%);
+  }
+
+  to {
+    transform: translateX(calc(-100% - 5rem));
+  }
+}

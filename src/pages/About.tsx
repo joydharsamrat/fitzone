@@ -20,13 +20,11 @@ const About = () => {
   return (
     <div>
       <div>
-        <div className={`${styles.banner} py-24 text-white text-center`}>
+        <div className={`${styles.banner} py-32 text-white text-center`}>
           <h1 className="text-4xl font-bold">About Us</h1>
           <p className="mt-4 text-lg max-w-2xl mx-auto">
-            Welcome to FitZone, where quality meets passion. We are committed to
-            delivering the best fitness equipment to help you achieve your
-            health and wellness goals. Discover who we are and what drives us to
-            serve you better.
+            Welcome to FitZone, where quality meets passion.Discover who we are
+            and what drives us to serve you better.
           </p>
         </div>
       </div>

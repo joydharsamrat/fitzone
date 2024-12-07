@@ -7,7 +7,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/features/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../schemas/LoginSchema";
 import styles from "../../styles/login.module.css";
 
@@ -19,6 +19,8 @@ const Login = () => {
   const [loginUser] = useLoginMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const onSubmit = async (data: any) => {
     const loadingToast = toast.loading("Loading...");
@@ -29,7 +31,7 @@ const Login = () => {
       const user = jwtDecode(res.data.token);
       dispatch(setUser({ user, token: res.data.token }));
       toast.success("Login successful!", { id: loadingToast });
-      navigate("/");
+      navigate(from, { replace: true });
     } catch (error: any) {
       toast.error(
         error.message ||

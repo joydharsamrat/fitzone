@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useGetProductByIdQuery } from "../../redux/features/product/product.api";
 import Loader from "../../components/shared/Loader";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import ProductDetailsBanner from "../../components/product/ProductDetailsBanner"
 import SimilarProducts from "../../components/product/SimilarProducts";
 import { useAddToCartMutation } from "../../redux/features/cart/cart.api";
 import toast from "react-hot-toast";
-import { getCurrentUser } from "../../redux/features/auth/authSlice";
+import { getCurrentUser, getToken } from "../../redux/features/auth/authSlice";
 import { useAppSelector } from "../../redux/features/hooks";
 
 const ProductDetails = () => {
@@ -22,6 +22,9 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
   const user = useAppSelector(getCurrentUser);
+  const token = useAppSelector(getToken);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (images?.length) {
@@ -45,6 +48,11 @@ const ProductDetails = () => {
 
   const handleAddToCart = async () => {
     const loadingToast = toast.loading("Loading...");
+    if (!token) {
+      toast.error("Please log in to continue", { id: loadingToast });
+      navigate(`/login`, { state: { from: location }, replace: true });
+      return;
+    }
     try {
       setLoading(true);
       const cartItem = {

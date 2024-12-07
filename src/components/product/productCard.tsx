@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { TProduct } from "../../interface";
 import styles from "../../styles/product.module.css";
 import { FaCartPlus } from "react-icons/fa";
@@ -15,12 +15,13 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [addToCart] = useAddToCartMutation();
+  const location = useLocation();
 
   const handleAddToCart = async () => {
     const loadingToast = toast.loading("Loading...");
     if (!token) {
       toast.error("Please log in to continue", { id: loadingToast });
-      navigate("/login");
+      navigate(`/login`, { state: { from: location }, replace: true });
       return;
     }
     try {

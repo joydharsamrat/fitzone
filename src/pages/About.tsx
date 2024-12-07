@@ -18,11 +18,20 @@ const imgs = [
 
 const About = () => {
   return (
-    <div className=" py-12">
-      <div className="max-w-7xl mx-auto px-6">
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-8 animate__animated animate__fadeIn">
-          About Us
-        </h1>
+    <div>
+      <div>
+        <div className={`${styles.banner} py-24 text-white text-center`}>
+          <h1 className="text-4xl font-bold">About Us</h1>
+          <p className="mt-4 text-lg max-w-2xl mx-auto">
+            Welcome to FitZone, where quality meets passion. We are committed to
+            delivering the best fitness equipment to help you achieve your
+            health and wellness goals. Discover who we are and what drives us to
+            serve you better.
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 mt-12">
         <div className="space-y-10">
           {/* Section 1: Mission */}
           <section className="text-center animate__animated animate__fadeIn">

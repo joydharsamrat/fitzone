@@ -25,11 +25,11 @@ const About = () => {
         </h1>
         <div className="space-y-10">
           {/* Section 1: Mission */}
-          <section className="text-center animate__animated animate__fadeInUp">
+          <section className="text-center animate__animated animate__fadeIn">
             <h2 className="text-2xl font-semibold text-primary-700 mb-4">
               Our Mission
             </h2>
-            <p className="text-gray-600 leading-relaxed">
+            <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto">
               We aim to empower individuals on their fitness journeys by
               providing top-quality fitness equipment. Our mission is to make
               fitness accessible, affordable, and enjoyable for everyone.
@@ -38,7 +38,7 @@ const About = () => {
 
           {/* Section 2: Features */}
           <section className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInLeft">
+            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
               <FaDumbbell className="text-4xl text-blue-500 mb-4 mx-auto" />
               <h3 className="text-xl font-medium text-gray-800 mb-2">
                 Quality Equipment
@@ -48,7 +48,7 @@ const About = () => {
                 durability and performance.
               </p>
             </div>
-            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInUp">
+            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
               <FaHeartbeat className="text-4xl text-red-500 mb-4 mx-auto" />
               <h3 className="text-xl font-medium text-gray-800 mb-2">
                 Customer Focused
@@ -58,7 +58,7 @@ const About = () => {
                 every step of the way.
               </p>
             </div>
-            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInRight">
+            <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
               <FaStar className="text-4xl text-yellow-500 mb-4 mx-auto" />
               <h3 className="text-xl font-medium text-gray-800 mb-2">
                 Trusted by Athletes
@@ -72,11 +72,11 @@ const About = () => {
           <div className=" py-12">
             <div className="space-y-10">
               {/* Section 1: Overview */}
-              <section className="text-center animate__animated animate__fadeInUp">
+              <section className="text-center animate__animated animate__fadeIn">
                 <h2 className="text-2xl font-semibold text-primary-700 mb-4">
                   Our Commitment to Your Success
                 </h2>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto">
                   Our journey is built around providing you with the tools,
                   support, and motivation you need to achieve your fitness
                   goals. From high-quality equipment to expert advice, we are
@@ -86,18 +86,18 @@ const About = () => {
 
               {/* Section 2: The Milestones */}
               <section className="grid md:grid-cols-3 gap-8 text-center">
-                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInLeft">
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
                   <FaDumbbell className="text-4xl text-blue-500 mb-4 mx-auto" />
                   <h3 className="text-xl font-medium text-gray-800 mb-2">
                     Start Strong
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 ">
                     Begin your fitness journey with top-tier equipment designed
                     to meet all your fitness needs, from strength training to
                     cardio.
                   </p>
                 </div>
-                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInUp">
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
                   <FaRunning className="text-4xl text-red-500 mb-4 mx-auto" />
                   <h3 className="text-xl font-medium text-gray-800 mb-2">
                     Stay Consistent
@@ -108,7 +108,7 @@ const About = () => {
                     motivated.
                   </p>
                 </div>
-                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeInRight">
+                <div className="p-6 bg-white box-shadow rounded-lg animate__animated animate__fadeIn">
                   <FaTrophy className="text-4xl text-yellow-500 mb-4 mx-auto" />
                   <h3 className="text-xl font-medium text-gray-800 mb-2">
                     Achieve Your Goals

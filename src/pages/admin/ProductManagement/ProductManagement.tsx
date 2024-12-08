@@ -1,11 +1,10 @@
 import { useGetAllProductsQuery } from "../../../redux/features/product/product.api";
-import ProductCardSkeleton from "../../../components/shared/loaders/ProductCardSkeleton";
 import { TCategory, TProduct } from "../../../interface";
-import styles from "../../../styles/product.module.css";
-import ProductCard from "../../../components/admin/productManagement/ProductCard";
 import { useGetAllCategoriesQuery } from "../../../redux/features/category/categoryApi";
 import { useEffect, useState } from "react";
 import { scrollToTop } from "../../../utils/ScrollToTop";
+import ProductTableRow from "../../../components/admin/productManagement/ProductCard";
+import ProductTableSkeleton from "../../../components/shared/loaders/ProductTableSkeleton";
 
 const ProductManagement = () => {
   const { data: categories } = useGetAllCategoriesQuery(undefined);
@@ -36,10 +35,10 @@ const ProductManagement = () => {
 
   const { data, isLoading } = useGetAllProductsQuery(query);
 
-  // Pagination controls
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
   };
+
   useEffect(() => {
     scrollToTop();
   }, [data]);
@@ -49,65 +48,87 @@ const ProductManagement = () => {
       <h1 className="text-3xl font-bold text-primary-700 text-center mb-8">
         Product Management
       </h1>
+      {/* Filter and Search Section */}
       <div className="flex flex-col lg:flex-row items-center justify-center mb-6 gap-4 bg-gradient py-5 px-5 rounded-lg md:rounded-3xl md:px-8">
         {/* Search Input */}
-        <div className="w-full lg:w-1/2">
-          <div className="flex">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
-            />
-          </div>
-        </div>
-
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full lg:w-1/2 p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+        />
         {/* Category Dropdown */}
-        <div className="w-full lg:w-auto">
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full lg:w-auto p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
-          >
-            <option value="">All Categories</option>
-            {categories?.data?.map((category: TCategory) => (
-              <option key={category._id} value={category._id}>
-                {category.title}
-              </option>
-            ))}
-          </select>
-        </div>
-
+        <select
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+          className="w-full lg:w-auto p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+        >
+          <option value="">All Categories</option>
+          {categories?.data?.map((category: TCategory) => (
+            <option key={category._id} value={category._id}>
+              {category.title}
+            </option>
+          ))}
+        </select>
         {/* Sorting Dropdown */}
-        <div className="w-full lg:w-auto">
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as "desc" | "asc")}
-            className="w-full lg:w-auto p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
-          >
-            <option disabled>Sort By Price</option>
-            <option value="asc">Low to High</option>
-            <option value="desc">High to Low</option>
-          </select>
-        </div>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as "desc" | "asc")}
+          className="w-full lg:w-auto p-2 border border-gray-300 rounded focus:outline-none focus:ring focus:ring-blue-300"
+        >
+          <option disabled>Sort By Price</option>
+          <option value="asc">Low to High</option>
+          <option value="desc">High to Low</option>
+        </select>
       </div>
 
-      <div
-        className={`${styles.productsContainer} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}
-      >
-        {isLoading ? (
-          <ProductCardSkeleton count={8} />
-        ) : data?.data.length ? (
-          data?.data.map((product: TProduct) => (
-            <ProductCard key={product._id} product={product} />
-          ))
-        ) : (
-          <div className="flex justify-center items-center text-3xl font-semibold">
-            <p>No Products Found</p>
-          </div>
-        )}
+      {/* Table for displaying products */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto border-collapse border-y border-gray-300">
+          <thead>
+            <tr>
+              <th className="py-2 min-w-[100px] border-b text-start">Image</th>
+              <th className="py-2 px-4 min-w-[150px] border-b text-start">
+                Name
+              </th>
+              <th className="py-2 px-4 min-w-[150px] border-b text-start">
+                Price
+              </th>
+              <th className="py-2 px-4 min-w-[150px] border-b text-start">
+                Quantity
+              </th>
+              <th className="py-2 px-4 min-w-[150px] border-b text-start">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {isLoading ? (
+              <>
+                <ProductTableSkeleton />
+                <ProductTableSkeleton />
+                <ProductTableSkeleton />
+                <ProductTableSkeleton />
+                <ProductTableSkeleton />
+                <ProductTableSkeleton />
+              </>
+            ) : data?.data.length ? (
+              data?.data.map((product: TProduct) => (
+                <ProductTableRow key={product._id} product={product} />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={5} className="text-center py-4">
+                  No Products Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
+
+      {/* Pagination Controls */}
       <div className="flex justify-center items-center mt-6 gap-10">
         <button
           onClick={() => handlePageChange(page - 1)}

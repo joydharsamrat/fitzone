@@ -22,17 +22,13 @@ const OrderStatusChart = ({
   }
 
   // Extract order statuses and their counts
-  const orderStatusCounts = orders.reduce((acc, order) => {
-    acc[order.status] = (acc[order.status] || 0) + 1;
-    return acc;
-  }, {} as { [key: string]: number });
 
   const data = {
-    labels: Object.keys(orderStatusCounts),
+    labels: Object.keys(orders),
     datasets: [
       {
         label: "Order Status Breakdown",
-        data: Object.values(orderStatusCounts),
+        data: Object.values(orders),
         backgroundColor: [
           "rgba(255, 99, 132, 0.6)", // Red
           "rgba(54, 162, 235, 0.6)", // Blue

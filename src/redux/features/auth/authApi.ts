@@ -16,6 +16,12 @@ const authApi = baseApi.injectEndpoints({
         body: userInfo,
       }),
     }),
+    logout: builder.mutation({
+      query: () => ({
+        method: "POST",
+        url: "/auth/logout",
+      }),
+    }),
     ChangePass: builder.mutation({
       query: (data) => ({
         method: "POST",
@@ -48,6 +54,7 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useSignUpMutation,
   useLoginMutation,
+  useLogoutMutation,
   useChangePassMutation,
   useForgotPassMutation,
   useResetPassMutation,

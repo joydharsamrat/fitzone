@@ -22,6 +22,8 @@ import EditProduct from "../pages/admin/ProductManagement/EditProduct";
 import OrderManagement from "../pages/admin/OrderManagement/Orders";
 import UserManagement from "../pages/admin/UserManagement/UserManagement";
 import AddProduct from "../pages/admin/ProductManagement/AddProduct";
+import AdminRoute from "../components/layouts/AdminRoute";
+import OrderDetails from "../pages/admin/OrderManagement/OrderDetails";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +63,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
     children: [
       { index: true, element: <Dashboard /> },
       {
@@ -79,6 +85,10 @@ export const router = createBrowserRouter([
       {
         path: "order-management",
         element: <OrderManagement />,
+      },
+      {
+        path: "order-management/:id",
+        element: <OrderDetails />,
       },
       {
         path: "user-management",

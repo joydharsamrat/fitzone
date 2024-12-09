@@ -2,11 +2,23 @@ import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Icons for burger and close menu
 import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import ScrollToTopButton from "../shared/ScrollToTopButton";
+import { useAppDispatch, useAppSelector } from "../../redux/features/hooks";
+import {
+  getCurrentUser,
+  getToken,
+  logout,
+} from "../../redux/features/auth/authSlice";
+import { useLogoutMutation } from "../../redux/features/auth/authApi";
+import { logoutUser } from "../../utils/LogoutUser";
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
   const [isProductOpen, setIsProductOpen] = useState(false);
+  const token = useAppSelector(getToken);
+  const user = useAppSelector(getCurrentUser);
+  const [clearRefreshToken] = useLogoutMutation();
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -134,26 +146,53 @@ const AdminLayout = () => {
               />
               <h1 className="logo sm:text-3xl">FITZONE</h1>
             </NavLink>
-            <h1 className="text-2xl font-bold hidden md:block">
-              Admin Dashboard
-            </h1>
-            {/* Burger Icon */}
-            <button
-              className="md:hidden text-white focus:outline-none"
-              onClick={toggleSidebar}
-            >
-              {isSidebarOpen ? (
-                <AiOutlineClose size={24} />
-              ) : (
-                <AiOutlineMenu size={24} />
+            <div className="hidden md:flex justify-end items-center w-full max-w-7xl px-5">
+              <h1 className="flex-1 text-center text-2xl font-bold  ">
+                Admin Dashboard
+              </h1>
+
+              {token && user?.role === "admin" && (
+                <button
+                  onClick={() =>
+                    logoutUser(dispatch, logout, clearRefreshToken)
+                  }
+                  className="text-xs md:text-sm text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
+                >
+                  Logout
+                </button>
               )}
-            </button>
+            </div>
+
+            <div className="flex md:hidden items-center gap-5">
+              {token && user?.role === "admin" && (
+                <button
+                  onClick={() =>
+                    logoutUser(dispatch, logout, clearRefreshToken)
+                  }
+                  className=" text-xs md:text-sm text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
+                >
+                  Logout
+                </button>
+              )}
+              {/* Burger Icon */}
+              <button
+                className=" text-white focus:outline-none"
+                onClick={toggleSidebar}
+              >
+                {isSidebarOpen ? (
+                  <AiOutlineClose size={24} />
+                ) : (
+                  <AiOutlineMenu size={24} />
+                )}
+              </button>
+            </div>
           </header>
           <div className="max-w-7xl mx-auto p-5">
             <Outlet />
           </div>
         </main>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

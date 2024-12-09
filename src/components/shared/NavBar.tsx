@@ -20,11 +20,15 @@ import {
   getToken,
   logout,
 } from "../../redux/features/auth/authSlice";
+import { useLogoutMutation } from "../../redux/features/auth/authApi";
+import { logoutUser } from "../../utils/LogoutUser";
 
 const NavBar = () => {
   const token = useAppSelector(getToken);
   const user = useAppSelector(getCurrentUser);
   const dispatch = useAppDispatch();
+  const [clearRefreshToken] = useLogoutMutation();
+
   const { data: cartData } = useGetItemsByUserQuery(undefined, {
     skip: !token || user?.role !== "user",
   });
@@ -133,7 +137,9 @@ const NavBar = () => {
               {token ? (
                 <>
                   <button
-                    onClick={() => dispatch(logout())}
+                    onClick={() =>
+                      logoutUser(dispatch, logout, clearRefreshToken)
+                    }
                     className="hidden md:block text-sm text-white px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md"
                   >
                     Logout
@@ -243,7 +249,7 @@ const NavBar = () => {
           {token && (
             <DisclosureButton
               as="button"
-              onClick={() => dispatch(logout())}
+              onClick={() => logoutUser(dispatch, logout, clearRefreshToken)}
               className="w-full text-sm text-white px-4 py-2 bg-red-500 hover:bg-red-700 rounded-md"
             >
               Logout

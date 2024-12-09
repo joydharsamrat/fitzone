@@ -24,6 +24,13 @@ const orderApi = baseApi.injectEndpoints({
       }),
       providesTags: ["orders"],
     }),
+    getOrderById: builder.query({
+      query: (id) => ({
+        url: `orders/${id}`,
+        method: "GET",
+      }),
+      providesTags: ["orders"],
+    }),
     updateOrderStatus: builder.mutation({
       query: ({ id, status }) => {
         return {
@@ -41,5 +48,6 @@ export const {
   useCreateOrderMutation,
   useGetOrderByUserIdQuery,
   useGetAllOrdersQuery,
+  useGetOrderByIdQuery,
   useUpdateOrderStatusMutation,
 } = orderApi;

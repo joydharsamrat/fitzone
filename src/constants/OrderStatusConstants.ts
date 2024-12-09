@@ -15,9 +15,14 @@ export const statusText: Record<string, string> = {
 };
 
 export const statusColors: Record<string, string> = {
-  pending: "text-yellow-600",
-  shipped: "text-blue-600",
-  delivered: "text-green-600",
-  canceled: "text-red-600",
-  returned: "text-purple-600",
+  pending:
+    "bg-yellow-100 text-yellow-700 font-semibold text-xs px-2 py-1 rounded-full",
+  shipped:
+    "bg-blue-100 text-blue-700 font-semibold text-xs px-2 py-1 rounded-full",
+  delivered:
+    "bg-green-100 text-green-700 font-semibold text-xs px-2 py-1 rounded-full",
+  canceled:
+    "bg-red-100 text-red-700 font-semibold text-xs px-2 py-1 rounded-full",
+  returned:
+    "bg-purple-100 text-purple-700 font-semibold text-xs px-2 py-1 rounded-full",
 };

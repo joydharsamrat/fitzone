@@ -31,4 +31,11 @@ export const productDataValidationSchema = z.object({
       typeof value === "string" ? parseInt(value, 10) : value
     ), // Converts string to number if necessary
   images: z.any().optional(),
+  discount: z
+    .union([z.string(), z.number()]) // Allows both string and number
+    .refine((value) => !isNaN(Number(value)), "Price must be a number") // Ensures the value is a valid number
+    .transform((value) =>
+      typeof value === "string" ? parseFloat(value) : value
+    )
+    .optional(),
 });

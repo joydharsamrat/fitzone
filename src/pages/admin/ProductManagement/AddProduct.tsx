@@ -15,23 +15,25 @@ import Loader from "../../../components/shared/Loader";
 import Form from "../../../components/shared/form/Form";
 import InputField from "../../../components/shared/form/InputField";
 import SelectInput from "../../../components/shared/form/SelectInput";
-import { TCategory } from "../../../interface";
 import FileInput from "../../../components/shared/form/FileInput";
+import { TCategory } from "../../../interface";
 
 const AddProduct = () => {
   const { isLoading, data } = useGetAllCategoriesQuery(undefined);
   const [loading, setLoading] = useState(false);
   const [createProduct] = useCreateProductMutation();
   const [selectedImages, setSelectedImages] = useState<FileList | null>(null);
+  const [showDiscount, setShowDiscount] = useState(false);
   const { uploadImage } = useUploadImage();
 
   const defaultValues = {
     name: "",
     price: 0,
-    category: data?.data[0]._id,
+    discount: 0,
+    category: data?.data[0]?._id || "",
     description: "",
     quantity: 0,
-    img: [],
+    images: [],
   };
 
   const onSubmit = async (data: FieldValues) => {
@@ -39,6 +41,7 @@ const AddProduct = () => {
     const parsedData = {
       ...data,
       price: parseFloat(data.price),
+      discount: parseFloat(data.discount || 0),
       quantity: parseInt(data.quantity, 10),
       images: data.images ? Array.from(data.images) : [],
     };
@@ -68,12 +71,10 @@ const AddProduct = () => {
         "Something went wrong. Please try again!";
 
       if (err instanceof ZodError) {
-        message = err.issues.map((issue) => issue.message);
+        message = err.issues.map((issue) => issue.message).join(", ");
       }
 
-      toast.error(message, {
-        id: "product",
-      });
+      toast.error(message, { id: "product" });
     } finally {
       setLoading(false);
     }
@@ -84,78 +85,110 @@ const AddProduct = () => {
   }
 
   return (
-    <div className="">
-      <h1 className="text-3xl font-semibold text-center mb-10">Add Product</h1>
-      <div className="flex justify-center items-center">
-        <div className="w-1/3 p-10 bg-neutral-200 rounded-s-xl flex flex-col items-center justify-between">
-          <div>
-            {selectedImages && selectedImages.length > 0
-              ? Array.from(selectedImages).map((img, index) => (
-                  <img
-                    className="w-[100px] rounded-md mb-2"
-                    key={index}
-                    src={URL.createObjectURL(img)}
-                    alt={`Selected ${index}`}
-                  />
-                ))
-              : Array(3)
-                  .fill(null)
-                  .map((_, index) => (
+    <div className="h-screen flex flex-col">
+      <h1 className="section-title">Add Product</h1>
+
+      <main className="flex-grow flex items-start justify-center ">
+        <div className="w-full max-w-7xl flex gap-8 p-8 ">
+          {/* Images Section */}
+          <div className="w-1/3 flex flex-col gap-4 items-center mt-4 ">
+            <h2 className="text-lg font-medium">Selected Images</h2>
+            <div className="flex flex-col gap-4">
+              {selectedImages && selectedImages.length > 0
+                ? Array.from(selectedImages).map((img, index) => (
                     <img
-                      className="w-[100px] rounded-md mb-2"
                       key={index}
-                      src="/placeholder.png"
-                      alt={`Placeholder ${index + 1}`}
+                      src={URL.createObjectURL(img)}
+                      alt={`Selected ${index}`}
+                      className="w-full h-24 object-cover rounded-lg "
                     />
-                  ))}
+                  ))
+                : Array(3)
+                    .fill(null)
+                    .map((_, index) => (
+                      <img
+                        key={index}
+                        src="/placeholder.png"
+                        alt={`Placeholder ${index}`}
+                        className="w-full h-24 object-cover rounded-lg "
+                      />
+                    ))}
+            </div>
+            <label
+              htmlFor="images"
+              className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Select Images
+            </label>
           </div>
 
-          <label className="btn-primary mt-5" htmlFor="images">
-            Select Images
-          </label>
-        </div>
-        <div className="bg-gradient w-1/3 p-10 rounded-e-xl">
-          <Form
-            onSubmit={onSubmit}
-            defaultValues={defaultValues}
-            resolver={zodResolver(productDataValidationSchema)}
-          >
-            <InputField type="text" name="name" label="Name" />
-            <InputField type="number" name="price" label="Price" />
-            <Controller
-              name="category"
-              defaultValue={data.data[0]._id}
-              render={({ field }) => (
-                <SelectInput
-                  data={data.data}
-                  selected={data.data.find(
-                    (category: TCategory) => category._id === field.value
-                  )}
-                  onChange={(value) => field.onChange(value._id)}
-                  label="Categories"
-                />
-              )}
-            />
+          {/* Form Section */}
+          <div className="w-2/3 ">
+            <Form
+              onSubmit={onSubmit}
+              defaultValues={defaultValues}
+              resolver={zodResolver(productDataValidationSchema)}
+            >
+              <InputField type="text" name="name" label="Name" />
+              <div className="flex justify-between items-center">
+                <InputField type="number" name="price" label="Price" />
+                <InputField type="number" name="quantity" label="Quantity" />
+              </div>
 
-            <InputField type="text" name="description" label="Description" />
-            <InputField type="number" name="quantity" label="Quantity" />
-            <FileInput
-              name="images"
-              multiple={true}
-              max={3}
-              accept="image/*"
-              setSelectedImages={setSelectedImages}
-            />
-            <div className="flex justify-end">
-              <input
-                type="submit"
-                value="submit"
-                className="btn-primary mt-5"
+              <Controller
+                name="category"
+                defaultValue={data?.data[0]?._id || ""}
+                render={({ field }) => (
+                  <SelectInput
+                    data={data?.data || []}
+                    selected={data?.data?.find(
+                      (category: TCategory) => category._id === field.value
+                    )}
+                    onChange={(value) => field.onChange(value._id)}
+                    label="Category"
+                  />
+                )}
               />
-            </div>
-          </Form>
+              <InputField type="text" name="description" label="Description" />
+              <div className="flex items-center gap-2 mt-4">
+                <input
+                  type="checkbox"
+                  id="add-discount"
+                  className="cursor-pointer"
+                  checked={showDiscount}
+                  onChange={(e) => setShowDiscount(e.target.checked)}
+                />
+                <label htmlFor="add-discount" className="cursor-pointer">
+                  Add Discount
+                </label>
+              </div>
+              {showDiscount && (
+                <div className="mt-4 transition-opacity duration-300 ease-in-out">
+                  <InputField
+                    type="number"
+                    name="discount"
+                    label="Discount (Optional)"
+                  />
+                </div>
+              )}
+              <FileInput
+                name="images"
+                multiple
+                max={3}
+                accept="image/*"
+                setSelectedImages={setSelectedImages}
+              />
+              <div className="mt-6">
+                <input
+                  type="submit"
+                  value="Submit"
+                  className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600"
+                />
+              </div>
+            </Form>
+          </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

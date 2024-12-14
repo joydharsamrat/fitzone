@@ -23,7 +23,7 @@ const SelectInput = ({
   return (
     <div className="my-2">
       <Listbox value={selected} onChange={onChange}>
-        <Label className="block text-sm font-medium leading-6 text-white">
+        <Label className="block text-sm font-medium leading-6 text-gray-500">
           {label}
         </Label>
         <div className="relative ">

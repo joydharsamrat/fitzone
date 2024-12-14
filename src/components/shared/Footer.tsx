@@ -1,7 +1,41 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useSubscribeToNewsletterMutation } from "../../redux/features/newsletter/newsletter.api";
+import { FormEvent } from "react";
+import toast from "react-hot-toast";
 
 const Footer = () => {
+  const [subscribe] = useSubscribeToNewsletterMutation();
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+
+    const loadingToast = toast.loading("Loading...");
+    try {
+      const email = (e.target as HTMLFormElement)?.email?.value;
+      const res = await subscribe({ email }).unwrap();
+      console.log({ res });
+      if (res.success) {
+        toast.success("Subscribed successfully!", { id: loadingToast });
+      } else {
+        throw new Error(
+          res?.message || "Something went wrong. Please try again."
+        );
+      }
+    } catch (error: any) {
+      toast.error(
+        error.message ||
+          error?.data?.message ||
+          "Subscription. Please try again.",
+        {
+          id: loadingToast,
+        }
+      );
+      console.log(error);
+    }
+  };
+
   return (
     <footer className="bg-primary-900 text-white py-10">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
@@ -133,9 +167,10 @@ const Footer = () => {
           <p className="text-neutral-300 text-sm mb-4">
             Get the latest updates and offers directly in your inbox.
           </p>
-          <form className="flex w-full max-w-lg ">
+          <form onSubmit={handleSubmit} className="flex w-full max-w-lg ">
             <input
               type="email"
+              name="email"
               placeholder="Enter your email"
               className="w-full flex-1 p-2 rounded-l-lg bg-neutral-100 text-primary-900 outline-none"
             />

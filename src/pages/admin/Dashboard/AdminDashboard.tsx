@@ -1,13 +1,14 @@
-import DashboardStats from "../../components/admin/dashboard/DashboardStats";
-import OrderStatusChart from "../../components/admin/dashboard/OrderStatusChart";
-import RevenueChart from "../../components/admin/dashboard/RevenueChart";
+import DashboardStats from "../../../components/admin/dashboard/DashboardStats";
+import LowStockProductsTable from "../../../components/admin/dashboard/LowStockProductsTable";
+import OrderStatusChart from "../../../components/admin/dashboard/OrderStatusChart";
+import RevenueChart from "../../../components/admin/dashboard/RevenueChart";
 import {
   useGetOrderStatusStatsQuery,
   useGetRevenueDataQuery,
   useGetStatsQuery,
-} from "../../redux/features/dashboard/dashboard.api";
+} from "../../../redux/features/dashboard/dashboard.api";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const { data: statsData, isLoading: isStatsLoading } =
     useGetStatsQuery(undefined);
 
@@ -27,21 +28,24 @@ const Dashboard = () => {
       <DashboardStats stats={stats} isStatsLoading={isStatsLoading} />
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-20 space-y-16 md:space-y-0">
-        <div className="col-span-2 box-shadow rounded p-1">
+        <div className="col-span-2 border rounded p-1">
           <RevenueChart
             revenueData={revenue}
             isRevenueLoading={isRevenueLoading}
           />
         </div>
-        <div className="col-span-1">
+        <div className="col-span-1 border rounded p-1">
           <OrderStatusChart
             orders={orders}
             isOrderDataLoading={isOrderStatusDataLoading}
           />{" "}
         </div>
       </div>
+      <div>
+        <LowStockProductsTable />
+      </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;

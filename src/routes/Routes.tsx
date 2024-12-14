@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/layouts/MainLayout";
 import App from "../App";
-import Dashboard from "../pages/admin/Dashboard";
+import AdminDashboard from "../pages/admin/Dashboard/AdminDashboard";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
 import Products from "../pages/product/Products";
@@ -24,6 +24,8 @@ import UserManagement from "../pages/admin/UserManagement/UserManagement";
 import AddProduct from "../pages/admin/ProductManagement/AddProduct";
 import AdminRoute from "../components/layouts/AdminRoute";
 import OrderDetails from "../pages/admin/OrderManagement/OrderDetails";
+import Unsubscribe from "../pages/newsletter/Unsubscribe";
+import SubscriberManagement from "../pages/admin/newsletterManagement/SubscriberManagement";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,7 @@ export const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/products", element: <Products /> },
       { path: "/products/:productId", element: <ProductDetails /> },
+      { path: "/newsletter/unsubscribe", element: <Unsubscribe /> },
     ],
   },
   {
@@ -69,7 +72,7 @@ export const router = createBrowserRouter([
       </AdminRoute>
     ),
     children: [
-      { index: true, element: <Dashboard /> },
+      { index: true, element: <AdminDashboard /> },
       {
         path: "product-management/products",
         element: <ProductManagement />,
@@ -93,6 +96,10 @@ export const router = createBrowserRouter([
       {
         path: "user-management",
         element: <UserManagement />,
+      },
+      {
+        path: "newsletter-management/subscribers",
+        element: <SubscriberManagement />,
       },
     ],
   },

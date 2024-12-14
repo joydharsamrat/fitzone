@@ -1,7 +1,17 @@
 import { Outlet, NavLink } from "react-router-dom";
 import { useState } from "react";
-import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Icons for burger and close menu
-import { FaArrowRight, FaChevronDown } from "react-icons/fa";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import {
+  FaChevronDown,
+  FaTachometerAlt,
+  FaBoxOpen,
+  FaUsers,
+  FaNewspaper,
+  FaBox,
+  FaClipboardList,
+  FaShoppingCart,
+  FaTools,
+} from "react-icons/fa";
 import ScrollToTopButton from "../shared/ScrollToTopButton";
 import { useAppDispatch, useAppSelector } from "../../redux/features/hooks";
 import {
@@ -16,6 +26,8 @@ const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const dispatch = useAppDispatch();
   const [isProductOpen, setIsProductOpen] = useState(false);
+  const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
+  const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const token = useAppSelector(getToken);
   const user = useAppSelector(getCurrentUser);
   const [clearRefreshToken] = useLogoutMutation();
@@ -58,21 +70,50 @@ const AdminLayout = () => {
                   />
                   <h1 className="logo sm:text-3xl">FITZONE</h1>
                 </NavLink>
-                <li onClick={toggleSidebar}>
+                <li>
                   <NavLink
                     to="/admin/dashboard"
-                    className="block w-full text-left p-2  text-white"
+                    className="flex items-center gap-2 w-full text-left p-2  text-white text-xs"
+                  ></NavLink>
+                  <button
+                    onClick={() => setIsDashboardOpen(!isDashboardOpen)}
+                    className=" w-full text-left p-2  text-white flex items-center gap-2 text-xs"
                   >
-                    Dashboard
-                  </NavLink>
+                    <FaTachometerAlt size={18} /> Dashboard
+                    <span
+                      style={{
+                        transform: isDashboardOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      <FaChevronDown />
+                    </span>
+                  </button>
+                  <div
+                    className={`ml-5 optionsContainer ${
+                      isDashboardOpen ? "open" : ""
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <NavLink
+                        onClick={toggleSidebar}
+                        to="/admin/dashboard"
+                        className="flex items-center gap-2 w-full text-left p-2  text-white text-xs"
+                      >
+                        <FaTools size={16} /> Admin Dashboard
+                      </NavLink>
+                    </div>
+                  </div>
                 </li>
 
-                <li onClick={toggleSidebar}>
+                <li>
                   <button
                     onClick={() => setIsProductOpen(!isProductOpen)}
-                    className=" w-full text-left p-2  text-white flex items-center gap-2"
+                    className=" w-full text-left p-2  text-white flex items-center gap-2 text-xs"
                   >
-                    Product management{" "}
+                    <FaBoxOpen size={18} /> Product management{" "}
                     <span
                       style={{
                         transform: isProductOpen
@@ -91,22 +132,18 @@ const AdminLayout = () => {
                   >
                     <div className="overflow-hidden">
                       <NavLink
+                        onClick={toggleSidebar}
                         to="/admin/dashboard/product-management/products"
-                        className="flex items-center gap-2 w-full text-left p-2  text-white"
+                        className="flex items-center gap-2 w-full text-left p-2  text-white text-xs"
                       >
-                        <span>
-                          <FaArrowRight />
-                        </span>{" "}
-                        Products
+                        <FaBox size={16} /> Products
                       </NavLink>
                       <NavLink
+                        onClick={toggleSidebar}
                         to="/admin/dashboard/product-management/add-product"
-                        className="flex items-center gap-2 w-full text-left p-2  text-white"
+                        className="flex items-center gap-2 w-full text-left p-2  text-white text-xs"
                       >
-                        <span>
-                          <FaArrowRight />
-                        </span>{" "}
-                        Add Product
+                        <FaClipboardList size={16} /> Add Product
                       </NavLink>
                     </div>
                   </div>
@@ -114,18 +151,51 @@ const AdminLayout = () => {
                 <li onClick={toggleSidebar}>
                   <NavLink
                     to="/admin/dashboard/order-management"
-                    className="block w-full text-left p-2 text-white"
+                    className="flex items-center gap-2  w-full text-left p-2 text-white text-xs"
                   >
-                    Order Management
+                    <FaShoppingCart size={18} /> Order Management
                   </NavLink>
                 </li>
                 <li onClick={toggleSidebar}>
                   <NavLink
                     to="/admin/dashboard/user-management"
-                    className="block w-full text-left p-2 text-white "
+                    className="flex items-center gap-2  w-full text-left p-2 text-white text-xs"
                   >
-                    User Management
+                    <FaUsers size={18} /> User Management
                   </NavLink>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setIsNewsletterOpen(!isNewsletterOpen)}
+                    className=" w-full text-left p-2  text-xs text-white flex items-center gap-2"
+                  >
+                    <FaNewspaper size={18} /> Newsletter management{" "}
+                    <span
+                      style={{
+                        transform: isNewsletterOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      <FaChevronDown />
+                    </span>
+                  </button>
+                  <div
+                    className={`ml-5 optionsContainer ${
+                      isNewsletterOpen ? "open" : ""
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <NavLink
+                        onClick={toggleSidebar}
+                        to="/admin/dashboard/newsletter-management/subscribers"
+                        className="flex items-center gap-2 w-full text-left p-2 text-xs text-white"
+                      >
+                        <FaUsers size={16} /> Subscribers
+                      </NavLink>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -147,16 +217,12 @@ const AdminLayout = () => {
               <h1 className="logo sm:text-3xl">FITZONE</h1>
             </NavLink>
             <div className="hidden md:flex justify-end items-center w-full max-w-7xl px-5">
-              <h1 className="flex-1 text-center text-2xl font-bold  ">
-                Admin Dashboard
-              </h1>
-
               {token && user?.role === "admin" && (
                 <button
                   onClick={() =>
                     logoutUser(dispatch, logout, clearRefreshToken)
                   }
-                  className="text-xs md:text-sm text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
+                  className="text-xs md:text-xs text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
                 >
                   Logout
                 </button>
@@ -169,7 +235,7 @@ const AdminLayout = () => {
                   onClick={() =>
                     logoutUser(dispatch, logout, clearRefreshToken)
                   }
-                  className=" text-xs md:text-sm text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
+                  className=" text-xs md:text-xs text-white px-2 md:px-4 py-1 md:py-2 bg-red-500 hover:bg-red-700 rounded-md"
                 >
                   Logout
                 </button>

@@ -143,3 +143,9 @@ export type TOrderStatus = {
   count: number;
   status: string;
 };
+
+export type TSubscriber = {
+  _id: string;
+  email: string;
+  status: string;
+};

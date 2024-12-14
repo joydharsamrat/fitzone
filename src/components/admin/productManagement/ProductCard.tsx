@@ -26,7 +26,7 @@ const ProductTableRow = ({ product }: { product: TProduct }) => {
     <tr>
       <td className="py-2  border-b">
         <img
-          className="w-20 h-20 object-cover rounded"
+          className="w-12 h-12 object-cover rounded"
           src={product.images[0] || "/placeholder.png"}
           alt={product.name}
         />

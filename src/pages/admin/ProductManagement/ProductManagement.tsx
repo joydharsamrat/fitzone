@@ -45,11 +45,9 @@ const ProductManagement = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-primary-700 text-center mb-8">
-        Product Management
-      </h1>
+      <h1 className="section-title">Product Management</h1>
       {/* Filter and Search Section */}
-      <div className="flex flex-col lg:flex-row items-center justify-center mb-6 gap-4 bg-gradient py-5 px-5 rounded-lg md:rounded-3xl md:px-8">
+      <div className="flex flex-col lg:flex-row items-center justify-center mb-6 gap-4 bg-neutral-100 py-5 px-5 rounded-lg md:rounded-3xl md:px-8">
         {/* Search Input */}
         <input
           type="text"
@@ -88,7 +86,7 @@ const ProductManagement = () => {
         <table className="min-w-full table-auto border-collapse border-y border-gray-300">
           <thead>
             <tr>
-              <th className="py-2 min-w-[100px] border-b text-start">Image</th>
+              <th className="py-2 min-w-[20px] border-b text-start">Image</th>
               <th className="py-2 px-4 min-w-[150px] border-b text-start">
                 Name
               </th>

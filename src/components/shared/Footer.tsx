@@ -15,9 +15,9 @@ const Footer = () => {
     try {
       const email = (e.target as HTMLFormElement)?.email?.value;
       const res = await subscribe({ email }).unwrap();
-      console.log({ res });
       if (res.success) {
         toast.success("Subscribed successfully!", { id: loadingToast });
+        (e.target as HTMLFormElement).reset();
       } else {
         throw new Error(
           res?.message || "Something went wrong. Please try again."

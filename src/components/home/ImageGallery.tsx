@@ -10,9 +10,7 @@ const ImageGallery = () => {
   return (
     <div className=" my-20">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
-          Image Gallery
-        </h2>
+        <h2 className="section-title">Image Gallery</h2>
         <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5 lg:gap-8 [&>div:not(:first-child)]:mt-5 lg:[&>div:not(:first-child)]:mt-8">
           {isLoading
             ? Array.from({ length: 12 }).map((_, index) => (

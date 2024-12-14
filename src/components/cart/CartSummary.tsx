@@ -11,7 +11,7 @@ const CartSummary = ({
 }: CartSummaryProps) => {
   return (
     <div className="bg-white rounded-lg my-12">
-      <h2 className="text-2xl font-bold text-gray-800 mb-5">Cart Summary</h2>
+      <h2 className="section-title">Cart Summary</h2>
       <div className="flex justify-between items-center mb-4">
         <p className="text-gray-700 font-medium">Subtotal:</p>
         <p className="text-gray-900 font-semibold">${totalPrice.toFixed(2)}</p>

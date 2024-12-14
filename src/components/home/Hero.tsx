@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <div className={`bg-gradient `}>
       <div className=" grid sm:grid-cols-2 justify-between  mb-20 px-10  relative  max-w-7xl mx-auto ">
-        <div className="flex flex-col justify-center gap-5 text-white animate__animated animate__fadeInLeft animate__slow animate__delay-.5s py-20 sm:py-0 z-10 min-h-[600px]">
+        <div className="flex flex-col justify-center gap-5 text-white animate__animated animate__fadeInLeft animate__slow animate__delay-.5s  z-10 min-h-[70vh] sm:min-h-[600px]">
           <h1 className=" w-fit text-3xl sm:text-5xl font-semibold">
             Unleash Your Potential
           </h1>

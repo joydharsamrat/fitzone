@@ -77,7 +77,7 @@ const CartPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-10 px-5 min-h-screen">
-      <h1 className="text-2xl font-semibold mb-5">Shopping Cart</h1>
+      <h1 className="section-title">Cart Items</h1>
       <div className="">
         {cartData?.data?.length === 0 ? (
           <div className="text-center flex flex-col justify-center items-center ">

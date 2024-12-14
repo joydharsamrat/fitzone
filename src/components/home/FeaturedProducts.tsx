@@ -9,9 +9,7 @@ const FeaturedProducts = () => {
 
   return (
     <div className="mt-20 px-5 sm:px-10 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
-        Featured Products
-      </h2>
+      <h2 className="section-title">Featured Products</h2>
       <div className={`${styles.productsContainer}`}>
         {isLoading ? (
           <ProductCardSkeleton />

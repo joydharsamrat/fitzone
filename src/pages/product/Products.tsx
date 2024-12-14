@@ -8,7 +8,6 @@ import CategorySelect from "../../components/product/selectProductCategory";
 import PriceRangeSelector from "../../components/product/pricerangeSelector";
 import ProductCardSkeleton from "../../components/shared/loaders/ProductCardSkeleton";
 import ProductsBanner from "../../components/product/ProductsBanner";
-import styles from "../../styles/product.module.css";
 import { scrollToTop } from "../../utils/ScrollToTop";
 
 const Products = () => {
@@ -170,7 +169,7 @@ const Products = () => {
           {/* Product List */}
           <div className={`col-span-1 md:col-span-3`}>
             <div
-              className={`${styles.productsContainer} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`}
+              className={` grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-5`}
             >
               {isLoading ? (
                 <ProductCardSkeleton count={8} />

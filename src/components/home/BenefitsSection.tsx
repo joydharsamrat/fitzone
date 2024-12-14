@@ -2,9 +2,7 @@ const BenefitsSection = () => {
   return (
     <div className="mt-20 bg-background-100 ">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
-          Why Choose Our Products?
-        </h2>
+        <h2 className="section-title">Why Choose Our Products?</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Benefit 1: High Quality */}
           <div className="flex items-center bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">

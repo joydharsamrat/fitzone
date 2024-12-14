@@ -58,14 +58,39 @@ const ProductCard = ({ product }: { product: TProduct }) => {
           <img className="" src={product.images[0]} alt={product.name} />
         </div>
 
-        <div className="px-2">
-          <p className="font-semibold mt-2 text-red-600 md:text-lg">
-            ${product.price}
-          </p>
+        {product.hasDiscount && (
+          <span
+            className="bg-secondary-700
+           text-white text-xs font-semibold px-10 py-1 absolute top-0 left-0 translate-y-2/3 -translate-x-[30%] -rotate-45"
+          >
+            Sale: {product.discount}%
+          </span>
+        )}
 
-          <h3 className="text-xs md:text-sm font-semibold">{product.name}</h3>
+        <div className="px-2 mt-2">
+          <div className="flex justify-start gap-2 items-center">
+            <p className="font-semibold text-red-600 md:text-lg">
+              $
+              {product.hasDiscount
+                ? product.finalPrice?.toFixed(2)
+                : product.price.toFixed(2)}
+            </p>
+            <p>
+              {" "}
+              {/* Show original price with strikethrough if there's a discount */}
+              {product.hasDiscount && (
+                <span className="line-through text-gray-500 text-sm">
+                  ${product.price.toFixed(2)}
+                </span>
+              )}
+            </p>
+          </div>
 
-          <div className="my-2">
+          <h3 className="text-xs md:text-sm my-2 font-semibold">
+            {product.name}
+          </h3>
+
+          <div>
             <p className="text-[10px] md:text-xs">
               {product.description.length > 50
                 ? `${product.description.slice(0, 50)}...`
@@ -75,7 +100,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         </div>
       </div>
 
-      <div className=" px-2">
+      <div className=" px-2 mt-4">
         <hr className="border" />
         <div className="flex items-center justify-around py-3">
           <Link

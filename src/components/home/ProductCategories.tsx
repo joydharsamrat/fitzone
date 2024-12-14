@@ -14,9 +14,7 @@ const ProductCategories = () => {
 
   return (
     <div className="mt-20 px-5 sm:px-10 pb-10 max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-primary-700 text-center mb-8">
-        Product Categories
-      </h2>
+      <h2 className="section-title">Product Categories</h2>
       <div className="grid grid-cols-2 sm:grid-cols-5 items-stretch justify-items-center gap-5 sm:gap-20">
         {isLoading ? (
           <CategorySkeleton />
@@ -36,7 +34,7 @@ const ProductCategories = () => {
                   src={category.icon}
                   alt={category.title}
                 />
-                <p>{category.title}</p>
+                <p className="text-xs">{category.title}</p>
               </div>
             </div>
           ))

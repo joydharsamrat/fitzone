@@ -33,6 +33,29 @@
   @apply bg-primary-700 rounded w-full px-3 py-2 text-white  font-semibold uppercase hover:bg-primary-900  transition-all duration-200 cursor-pointer;
 }
 
+.section-title {
+  @apply text-xl font-bold text-primary-700 text-center mb-8 w-fit relative;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  bottom: -10px;
+  height: 1px;
+  width: 50%;
+  background: #ef233c;
+}
+.section-title::before {
+  content: "";
+  position: absolute;
+  right: 10%;
+  bottom: -5px;
+  height: 2px;
+  width: 50%;
+  background: #ef233c;
+}
+
 /* price range styles  */
 
 input::-webkit-outer-spin-button,

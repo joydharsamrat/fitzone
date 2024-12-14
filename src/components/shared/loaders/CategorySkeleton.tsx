@@ -1,9 +1,11 @@
+import { SwiperSlide } from "swiper/react";
+
 const CategorySkeleton = () => {
   return (
     <>
       {" "}
       {Array.from({ length: 10 }).map((_, index) => (
-        <div
+        <SwiperSlide
           key={index}
           className="min-w-[100px]  flex cursor-pointer uppercase "
         >
@@ -12,7 +14,7 @@ const CategorySkeleton = () => {
 
             <div className="h-4 bg-gray-300 rounded w-2/3 mx-auto" />
           </div>
-        </div>
+        </SwiperSlide>
       ))}
     </>
   );

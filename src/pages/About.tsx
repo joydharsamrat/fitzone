@@ -32,11 +32,9 @@ const About = () => {
       <div className="max-w-7xl mx-auto px-6 mt-12">
         <div className="space-y-10">
           {/* Section 1: Mission */}
-          <section className="text-center animate__animated animate__fadeIn">
-            <h2 className="text-2xl font-semibold text-primary-700 mb-4">
-              Our Mission
-            </h2>
-            <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto">
+          <section className="flex flex-col justify-center items-center animate__animated animate__fadeIn">
+            <h2 className="section-title ">Our Mission</h2>
+            <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto text-center">
               We aim to empower individuals on their fitness journeys by
               providing top-quality fitness equipment. Our mission is to make
               fitness accessible, affordable, and enjoyable for everyone.
@@ -79,11 +77,11 @@ const About = () => {
           <div className=" py-12">
             <div className="space-y-10">
               {/* Section 1: Overview */}
-              <section className="text-center animate__animated animate__fadeIn">
-                <h2 className="text-2xl font-semibold text-primary-700 mb-4">
+              <section className="flex flex-col justify-center items-center  animate__animated animate__fadeIn">
+                <h2 className="section-title">
                   Our Commitment to Your Success
                 </h2>
-                <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto">
+                <p className="text-gray-600 leading-relaxed md:w-1/2 mx-auto text-center">
                   Our journey is built around providing you with the tools,
                   support, and motivation you need to achieve your fitness
                   goals. From high-quality equipment to expert advice, we are
@@ -131,9 +129,9 @@ const About = () => {
           </div>
 
           <section className="py-12 ">
-            <h2 className="text-2xl font-semibold text-primary-700 mb-6 text-center">
-              Our Trusted Partners
-            </h2>
+            <div className="flex justify-center">
+              <h2 className="section-title">Our Trusted Partners</h2>
+            </div>
             <div className="flex items-center gap-20 pointer-events-none overflow-hidden mt-10">
               <div className={`flex gap-20 items-center ${styles.partners}`}>
                 {imgs?.map((img, i) => (

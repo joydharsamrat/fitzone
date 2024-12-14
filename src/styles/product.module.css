@@ -1,6 +1,6 @@
 /* Container for products */
 .productsContainer {
-  @apply grid grid-cols-2 md:grid-cols-4 justify-items-center gap-5 md:gap-10;
+  @apply grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 justify-items-center gap-5 md:gap-10;
 }
 
 /* Product */
@@ -22,4 +22,13 @@
 /* Hover effect for product image */
 .product:hover .productImgContainer img {
   @apply scale-110;
+}
+
+/* products page banner  */
+.banner {
+  background-image: linear-gradient(rgb(0, 0, 0, 0.7), rgb(0, 0, 0, 0.7)),
+    url(https://i.ibb.co.com/nwCV7bb/product-banner.webp);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

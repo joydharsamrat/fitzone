@@ -19,6 +19,8 @@ const productApi = baseApi.injectEndpoints({
         sort = "",
         page = 1,
         limit = 0,
+        newProducts = false,
+        onSale = false,
       }) => {
         const params = new URLSearchParams();
 
@@ -54,6 +56,16 @@ const productApi = baseApi.injectEndpoints({
           params.append("limit", limit.toString());
         }
 
+        // Add new products
+        if (newProducts) {
+          params.append("new", newProducts);
+        }
+
+        // Add on-sale
+        if (onSale) {
+          params.append("onSale", onSale);
+        }
+
         return {
           url: `products?${params.toString()}`,
           method: "GET",
@@ -61,6 +73,7 @@ const productApi = baseApi.injectEndpoints({
       },
       providesTags: ["products"],
     }),
+
     getFeaturedProducts: builder.query({
       query: () => ({
         url: "products/featured",

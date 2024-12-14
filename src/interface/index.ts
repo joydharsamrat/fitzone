@@ -5,8 +5,10 @@ export type TProduct = {
   description: string;
   images: string[];
   category: string;
-  badge?: string;
   rating?: number;
+  discount?: number;
+  hasDiscount?: boolean;
+  finalPrice?: number;
   _id: string;
 };
 export type TCategory = {

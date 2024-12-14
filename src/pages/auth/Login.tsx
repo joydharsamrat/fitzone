@@ -24,7 +24,6 @@ const Login = () => {
 
   const onSubmit = async (data: any) => {
     const loadingToast = toast.loading("Loading...");
-
     try {
       const res = await loginUser(data).unwrap();
 
@@ -43,6 +42,38 @@ const Login = () => {
       );
       console.log(error);
     }
+  };
+
+  const loginUsingCredentials = async (credentials: {
+    email: string;
+    password: string;
+  }) => {
+    const loadingToast = toast.loading("Logging In...");
+    try {
+      const res = await loginUser(credentials).unwrap();
+      const user = jwtDecode(res.data.token);
+
+      dispatch(setUser({ user, token: res.data.token }));
+      toast.success("Login successful!", { id: loadingToast });
+      navigate(from, { replace: true });
+    } catch (error: any) {
+      console.log(error);
+      toast.error(
+        `${error?.data?.message}` || "Login failed! Please try again",
+        {
+          id: loadingToast,
+        }
+      );
+    }
+  };
+
+  const adminCredentials = {
+    email: "joydharsamrat@gmail.com",
+    password: "52615261",
+  };
+  const userCredentials = {
+    email: "joydharsamrat1@gmail.com",
+    password: "52615261",
   };
 
   return (
@@ -84,6 +115,20 @@ const Login = () => {
               Register
             </NavLink>
           </p>
+          <div className="flex justify-between items-center text-sm mt-10">
+            <button
+              onClick={() => loginUsingCredentials(adminCredentials)}
+              className="text-white underline"
+            >
+              Login As Admin
+            </button>
+            <button
+              onClick={() => loginUsingCredentials(userCredentials)}
+              className="text-white underline"
+            >
+              Login As User
+            </button>
+          </div>
         </div>
       </div>
     </div>

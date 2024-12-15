@@ -63,6 +63,9 @@ const EditProduct = () => {
       setIsDiscountEnabled(true);
     }
   }, [product]);
+  useEffect(() => {
+    console.log(selectedImages && selectedImages.length);
+  }, [selectedImages]);
 
   // Function to remove an image from the existingImages array
   const removeImage = (imageUrl: string) => {
@@ -167,7 +170,7 @@ const EditProduct = () => {
                       </button>
                     </div>
                   ))}
-                  {selectedImages?.length &&
+                  {selectedImages &&
                     Array.from(selectedImages).map((img, index) => (
                       <div key={index} className="relative">
                         <img
@@ -207,7 +210,7 @@ const EditProduct = () => {
               resolver={zodResolver(productDataValidationSchema)}
             >
               <InputField type="text" name="name" label="Name" />
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between gap-5 items-center">
                 <InputField type="number" name="price" label="Price" />
                 <InputField type="number" name="quantity" label="Quantity" />
               </div>

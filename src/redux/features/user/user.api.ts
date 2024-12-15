@@ -15,6 +15,7 @@ const userApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["users"],
+      keepUnusedDataFor: 0,
     }),
     makeAdmin: builder.mutation({
       query: (id) => ({

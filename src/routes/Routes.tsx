@@ -26,6 +26,10 @@ import AdminRoute from "../components/layouts/AdminRoute";
 import OrderDetails from "../pages/admin/OrderManagement/OrderDetails";
 import Unsubscribe from "../pages/newsletter/Unsubscribe";
 import SubscriberManagement from "../pages/admin/newsletterManagement/SubscriberManagement";
+import Categories from "../pages/admin/CategoryManagement/Categories";
+import EditCategory from "../pages/admin/CategoryManagement/EditCategory";
+import AddCategory from "../pages/admin/CategoryManagement/AddCategory";
+import AdminProfile from "../pages/admin/Profile/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +69,18 @@ export const router = createBrowserRouter([
     ],
   },
   {
+    path: "/admin/profile",
+    element: (
+      <AdminRoute>
+        <MainLayout></MainLayout>
+      </AdminRoute>
+    ),
+    children: [
+      { index: true, element: <AdminProfile /> },
+      { path: "edit", element: <EditProfile /> },
+    ],
+  },
+  {
     path: "/admin/dashboard",
     element: (
       <AdminRoute>
@@ -73,6 +89,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <AdminDashboard /> },
+
       {
         path: "product-management/products",
         element: <ProductManagement />,
@@ -100,6 +117,18 @@ export const router = createBrowserRouter([
       {
         path: "newsletter-management/subscribers",
         element: <SubscriberManagement />,
+      },
+      {
+        path: "category-management/categories",
+        element: <Categories />,
+      },
+      {
+        path: "category-management/add-category",
+        element: <AddCategory />,
+      },
+      {
+        path: "category-management/categories/edit/:id",
+        element: <EditCategory />,
       },
     ],
   },

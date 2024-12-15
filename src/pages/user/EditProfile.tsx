@@ -11,10 +11,12 @@ import { editProfileSchema } from "../../schemas/ProfileSchema";
 import InputField from "../../components/shared/form/InputField";
 import { FieldValues } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { TUser } from "../../interface";
 
 const EditProfile = () => {
   const { data: userData, isLoading: userLoading } =
     useGetUserByIdQuery(undefined);
+
   const [updateUserInfo, { isLoading: isUpdating }] =
     useUpdateUserInfoMutation();
 
@@ -22,13 +24,13 @@ const EditProfile = () => {
 
   if (userLoading) return <Loader />;
 
-  const user = userData?.data?.data;
+  const user: TUser = userData?.data?.data;
 
   const handleSubmit = async (formData: FieldValues) => {
     try {
       await updateUserInfo(formData).unwrap();
       toast.success("Profile updated successfully!");
-      navigate("/user/profile");
+      navigate(`${user.role === "user" ? "/user/profile" : "/admin/profile"}`);
     } catch (error: any) {
       toast.error(error?.data?.message || "Failed to update profile");
     }

@@ -130,7 +130,7 @@ const AddProduct = () => {
               resolver={zodResolver(productDataValidationSchema)}
             >
               <InputField type="text" name="name" label="Name" />
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between gap-5 items-center">
                 <InputField type="number" name="price" label="Price" />
                 <InputField type="number" name="quantity" label="Quantity" />
               </div>

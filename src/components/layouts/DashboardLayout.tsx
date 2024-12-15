@@ -11,6 +11,9 @@ import {
   FaClipboardList,
   FaShoppingCart,
   FaTools,
+  FaSitemap,
+  FaTags,
+  FaPlusCircle,
 } from "react-icons/fa";
 import ScrollToTopButton from "../shared/ScrollToTopButton";
 import { useAppDispatch, useAppSelector } from "../../redux/features/hooks";
@@ -28,6 +31,7 @@ const AdminLayout = () => {
   const [isProductOpen, setIsProductOpen] = useState(false);
   const [isNewsletterOpen, setIsNewsletterOpen] = useState(false);
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const token = useAppSelector(getToken);
   const user = useAppSelector(getCurrentUser);
   const [clearRefreshToken] = useLogoutMutation();
@@ -148,6 +152,47 @@ const AdminLayout = () => {
                     </div>
                   </div>
                 </li>
+                <li>
+                  <button
+                    onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                    className="w-full text-left p-2 text-white flex items-center gap-2 text-xs"
+                  >
+                    <FaSitemap size={18} /> Category Management{" "}
+                    <span
+                      style={{
+                        transform: isCategoryOpen
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                        transition: "transform 0.3s ease",
+                      }}
+                    >
+                      <FaChevronDown />
+                    </span>
+                  </button>
+                  <div
+                    className={`ml-5 optionsContainer ${
+                      isCategoryOpen ? "open" : ""
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <NavLink
+                        onClick={toggleSidebar}
+                        to="/admin/dashboard/category-management/categories"
+                        className="flex items-center gap-2 w-full text-left p-2 text-white text-xs"
+                      >
+                        <FaTags size={16} /> Categories
+                      </NavLink>
+                      <NavLink
+                        onClick={toggleSidebar}
+                        to="/admin/dashboard/category-management/add-category"
+                        className="flex items-center gap-2 w-full text-left p-2 text-white text-xs"
+                      >
+                        <FaPlusCircle size={16} /> Add Category
+                      </NavLink>
+                    </div>
+                  </div>
+                </li>
+
                 <li onClick={toggleSidebar}>
                   <NavLink
                     to="/admin/dashboard/order-management"

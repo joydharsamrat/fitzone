@@ -121,7 +121,7 @@ const Footer = () => {
             <ul className="flex space-x-4">
               <li>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/vincent.samrat.5"
                   aria-label="Facebook"
                   className="text-neutral-300 hover:text-secondary-500 transition-colors"
                 >
@@ -130,7 +130,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://x.com/"
                   aria-label="Twitter"
                   className="text-neutral-300 hover:text-secondary-500 transition-colors"
                 >
@@ -139,7 +139,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/"
                   aria-label="Instagram"
                   className="text-neutral-300 hover:text-secondary-500 transition-colors"
                 >
@@ -148,7 +148,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/in/samrat-joydhar/"
                   aria-label="LinkedIn"
                   className="text-neutral-300 hover:text-secondary-500 transition-colors"
                 >

@@ -61,7 +61,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ user }) => {
 
   return (
     <div
-      className={`relative h-24 w-24 rounded-full shadow-box border-8 bg-white ${
+      className={`relative h-32 w-32 rounded-full shadow-box border-8 bg-white box-shadow ${
         changingImg ? "mb-5" : ""
       }`}
     >
@@ -75,7 +75,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ user }) => {
             <div className="relative">
               <label htmlFor="profileImg">
                 <img
-                  className="h-20 w-20 rounded-full"
+                  className="h-28 w-28 rounded-full"
                   src={
                     typeof imgData === "string"
                       ? imgData
@@ -107,7 +107,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({ user }) => {
               className="relative group cursor-pointer"
             >
               <img
-                className="h-20 w-20 rounded-full border-2 border-gray-300"
+                className="h-28 w-28 rounded-full border-2 border-gray-300"
                 src={user.image || "/assets/images/placeholder_user.jpg"}
                 alt={user.name || "profile"}
               />

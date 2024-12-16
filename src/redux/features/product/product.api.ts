@@ -98,7 +98,14 @@ const productApi = baseApi.injectEndpoints({
     getLowStockProducts: builder.query({
       query: () => ({
         url: `products/low-stock`,
-        method: "get",
+        method: "GET",
+      }),
+      providesTags: ["products"],
+    }),
+    getBestSellingProducts: builder.query({
+      query: () => ({
+        url: `products/best-selling`,
+        method: "GET",
       }),
       providesTags: ["products"],
     }),
@@ -133,4 +140,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useGetLowStockProductsQuery,
+  useGetBestSellingProductsQuery,
 } = productApi;

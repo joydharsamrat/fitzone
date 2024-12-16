@@ -1,4 +1,5 @@
 import BenefitsSection from "../components/home/BenefitsSection";
+import BestSelling from "../components/home/BestSellingProducts";
 import FeaturedProducts from "../components/home/FeaturedProducts";
 import Hero from "../components/home/Hero";
 import ImageGallery from "../components/home/ImageGallery";
@@ -15,6 +16,7 @@ const Home = () => {
       <FeaturedProducts />
       <OnSale />
       <NewProducts />
+      <BestSelling />
       <Testimonials />
       <BenefitsSection />
       <ImageGallery />

@@ -52,7 +52,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
   };
 
   return (
-    <div className={`${styles.product} border-4 `}>
+    <div className={`${styles.product} border-4 h-full`}>
       <div>
         <div className={`${styles.productImgContainer} `}>
           <img className="" src={product.images[0]} alt={product.name} />
@@ -100,7 +100,7 @@ const ProductCard = ({ product }: { product: TProduct }) => {
         </div>
       </div>
 
-      <div className=" px-2 mt-4">
+      <div className=" px-2 mt-2">
         <hr className="border" />
         <div className="flex items-center justify-around py-3">
           <Link

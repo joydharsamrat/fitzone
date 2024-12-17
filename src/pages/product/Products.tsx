@@ -172,7 +172,9 @@ const Products = () => {
               className={` grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-items-center gap-5`}
             >
               {isLoading ? (
-                <ProductCardSkeleton count={8} />
+                Array.from({ length: 8 }).map((_, index) => (
+                  <ProductCardSkeleton key={index} />
+                ))
               ) : data?.data.length ? (
                 data?.data.map((product: TProduct) => (
                   <ProductCard key={product._id} product={product} />

@@ -1,12 +1,30 @@
-import { useGetAllCategoriesQuery } from "../../../redux/features/category/categoryApi";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  useDeleteCategoryMutation,
+  useGetAllCategoriesQuery,
+} from "../../../redux/features/category/categoryApi";
 import { AiFillEdit } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import { TCategory } from "../../../interface";
 import ProductTableSkeleton from "../../../components/shared/loaders/ProductTableSkeleton";
+import toast from "react-hot-toast";
 
 const Categories = () => {
   const { data, isLoading } = useGetAllCategoriesQuery(undefined);
+  const [deleteCategory] = useDeleteCategoryMutation();
+  const handleDeleteCategory = async (id: string) => {
+    const loadingToast = toast.loading("Deleting...");
+    try {
+      const res = await deleteCategory(id);
+      if (res.error) throw res.error;
+      toast.success("Delete successful!", { id: loadingToast });
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Delete failed. Try again.", {
+        id: loadingToast,
+      });
+    }
+  };
 
   return (
     <div>
@@ -48,7 +66,7 @@ const Categories = () => {
                   <td className="py-2 px-4 border-b ">
                     <div className="flex gap-3">
                       <button
-                        // onClick={() => handleDeleteProduct(product._id)}
+                        onClick={() => handleDeleteCategory(category._id)}
                         className="text-red-600 flex items-center gap-2"
                       >
                         <FaTrashAlt />

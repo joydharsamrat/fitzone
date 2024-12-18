@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FaPhoneAlt, FaRegEdit } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import { FaUserAlt, FaEnvelope } from "react-icons/fa";
 import { useGetUserByIdQuery } from "../../../redux/features/user/user.api";
@@ -136,6 +136,15 @@ const AdminProfile = () => {
           >
             <FaRegEdit />
           </button>
+        </div>
+        <div className="mt-6 flex justify-end">
+          <Link
+            to="/change-password"
+            className="bg-secondary-700 text-white py-2 px-4 rounded-md shadow-md flex items-center gap-2 hover:bg-secondary-800 transition duration-300"
+          >
+            <FaRegEdit className="text-lg" />
+            <span>Change Password</span>
+          </Link>
         </div>
       </div>
     </div>

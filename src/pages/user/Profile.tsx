@@ -3,12 +3,14 @@ import { FaEnvelope, FaPhoneAlt, FaRegEdit, FaUserAlt } from "react-icons/fa";
 import { TOrder } from "../../interface";
 import { useGetOrderByUserIdQuery } from "../../redux/features/order/order.api";
 import { useGetUserByIdQuery } from "../../redux/features/user/user.api";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoPlus } from "react-icons/go";
 import Loader from "../../components/shared/Loader";
 import ProfileImage from "../../components/user/ProfileImage";
 import { AiOutlineEdit } from "react-icons/ai";
 import { FaLocationDot } from "react-icons/fa6";
+import { useAppSelector } from "../../redux/features/hooks";
+import { getToken } from "../../redux/features/auth/authSlice";
 
 const Profile = () => {
   const { data: userData, isLoading: userLoading } =
@@ -16,6 +18,9 @@ const Profile = () => {
   const { data: ordersData, isLoading: ordersLoading } =
     useGetOrderByUserIdQuery(undefined);
   const navigate = useNavigate();
+
+  const token = useAppSelector(getToken);
+  console.log(token);
 
   const user = userData?.data.data;
   const orders = ordersData?.data || [];
@@ -141,6 +146,16 @@ const Profile = () => {
           >
             <FaRegEdit />
           </button>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <Link
+            to="/change-password"
+            className="bg-secondary-700 text-white py-2 px-4 rounded-md shadow-md flex items-center gap-2 hover:bg-secondary-800 transition duration-300"
+          >
+            <FaRegEdit className="text-lg" />
+            <span>Change Password</span>
+          </Link>
         </div>
       </div>
 

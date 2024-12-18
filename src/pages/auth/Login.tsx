@@ -7,7 +7,7 @@ import { useLoginMutation } from "../../redux/features/auth/authApi";
 import { useAppDispatch } from "../../redux/features/hooks";
 import { setUser } from "../../redux/features/auth/authSlice";
 import { jwtDecode } from "jwt-decode";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../schemas/LoginSchema";
 import styles from "../../styles/login.module.css";
 
@@ -104,6 +104,10 @@ const Login = () => {
             <InputField type="email" name="email" label="Email Address" />
             <InputField type="password" name="password" label="Password" />
 
+            <Link to="/forget-password" className="text-xs text-blue-400">
+              Forgotten your password ?
+            </Link>
+
             <div className="flex justify-center">
               <input type="submit" value="Login" className="btn-primary mt-5" />
             </div>
@@ -111,9 +115,9 @@ const Login = () => {
 
           <p className="mt-5 text-center text-white text-sm">
             New to FITZONE?{" "}
-            <NavLink to="/register" className="text-blue-400 hover:underline">
+            <Link to="/register" className="text-blue-400 hover:underline">
               Register
-            </NavLink>
+            </Link>
           </p>
           <div className="flex justify-between items-center text-sm mt-10">
             <button

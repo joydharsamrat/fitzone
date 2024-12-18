@@ -30,6 +30,9 @@ import Categories from "../pages/admin/CategoryManagement/Categories";
 import EditCategory from "../pages/admin/CategoryManagement/EditCategory";
 import AddCategory from "../pages/admin/CategoryManagement/AddCategory";
 import AdminProfile from "../pages/admin/Profile/Profile";
+import ChangePassword from "../pages/auth/ChangePassword";
+import ForgetPassword from "../pages/auth/ForgetPassword";
+import ResetPassword from "../pages/auth/ResetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -139,5 +142,17 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/change-password",
+    element: <ChangePassword />,
+  },
+  {
+    path: "/forget-password",
+    element: <ForgetPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />,
   },
 ]);

@@ -33,6 +33,7 @@ import AdminProfile from "../pages/admin/Profile/Profile";
 import ChangePassword from "../pages/auth/ChangePassword";
 import ForgetPassword from "../pages/auth/ForgetPassword";
 import ResetPassword from "../pages/auth/ResetPassword";
+import NotFound from "../pages/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -154,5 +155,9 @@ export const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPassword />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
